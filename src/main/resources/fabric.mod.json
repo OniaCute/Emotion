@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "emotion",
+  "version": "${version}",
+  "name": "Emotion",
+  "description": "A unique cheat for 2B2T",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/emotion/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-datagen": [
+      "cc.emotion.client.EmotionDataGenerator"
+    ],
+    "client": [
+      "cc.emotion.client.EmotionClient"
+    ],
+    "main": [
+      "cc.emotion.Emotion"
+    ]
+  },
+  "mixins": [
+    "emotion.mixins.json",
+    {
+      "config": "emotion.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
