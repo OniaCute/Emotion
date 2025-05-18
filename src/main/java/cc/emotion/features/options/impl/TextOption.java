@@ -2,11 +2,21 @@ package cc.emotion.features.options.impl;
 
 import cc.emotion.features.options.Option;
 
-public class TextOption extends Option<Boolean> {
+public class TextOption extends Option<String> {
     public TextOption(String name) {
-        super(name, false);
+        super(name, "", "");
     }
-    public TextOption(String name, boolean defaultValue) {
-        super(name, defaultValue);
+    public TextOption(String name, String defaultValue) {
+        super(name, "", defaultValue);
+    }
+
+    @Override
+    public void setValue(String value) {
+        super.setValue(value);
+    }
+
+    @Override
+    public String getValue() {
+        return super.getValue();
     }
 }

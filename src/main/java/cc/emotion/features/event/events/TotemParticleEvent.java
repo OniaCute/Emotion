@@ -1,6 +1,7 @@
 package cc.emotion.features.event.events;
 
 import java.awt.*;
+import cc.emotion.features.event.Event;
 
 public class TotemParticleEvent extends Event {
     public double velocityX, velocityY, velocityZ;

@@ -1,6 +1,9 @@
 package cc.emotion;
 
 import cc.emotion.features.event.eventbus.EventBus;
+import cc.emotion.features.managers.EventManager;
+import cc.emotion.features.managers.ModuleManager;
+import cc.emotion.features.managers.TextManager;
 import cc.emotion.features.managers.URLManager;
 import cc.emotion.util.other.Console;
 import net.fabricmc.api.ModInitializer;
@@ -15,8 +18,8 @@ import static cc.emotion.util.interfaces.Wrapper.mc;
 public class Emotion implements ModInitializer {
     // Information & Mod status
     public static final ModMetadata MOD_INFO;
-    public static final String MOD_ID = "nafity";
-    public static final String NAME = "Nafity";
+    public static final String MOD_ID = "emotion";
+    public static final String NAME = "Emotion";
     public static final String VERSION = "1.0.0";
     public static final ArrayList<String> AUTHORS = new ArrayList<String>();
     public static String PREFIX = "$";
@@ -29,7 +32,10 @@ public class Emotion implements ModInitializer {
     // Manager & Preload
     public static Console CONSOLE;
     public static EventBus EVENTBUS;
+    public static TextManager TEXT;
     public static URLManager URL;
+    public static ModuleManager MODULE;
+    public static EventManager EVENTS;
 
     // Mod Info Load
     static {
@@ -41,7 +47,7 @@ public class Emotion implements ModInitializer {
         CONSOLE = new Console();
         CONSOLE.logInfo("Nafity | Preloaded", true);
         CONSOLE.logInfo("VERSION: " + VERSION, true);
-        CONSOLE.logInfo("Authors: Forizing", true);
+        CONSOLE.logInfo("Authors: Onia", true);
 
         if (!MOD_INFO.getId().equals(MOD_ID)) {
             CONSOLE.logWarn("Fabric mod value check failed!");
@@ -65,7 +71,10 @@ public class Emotion implements ModInitializer {
         AUTHORS.add("Onia");
         // Real load
         LOAD_TIME = System.currentTimeMillis();
+        TEXT = new TextManager();
         URL = new URLManager();
+        MODULE = new ModuleManager();
+        EVENTS = new EventManager();
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             if (LOADED) {
