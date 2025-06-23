@@ -1,5 +1,7 @@
 package cc.emotion.util.font;
 
+
+import cc.emotion.util.interfaces.Wrapper;
 import com.google.common.base.Preconditions;
 import com.mojang.blaze3d.systems.RenderSystem;
 import it.unimi.dsi.fastutil.chars.Char2IntArrayMap;
@@ -7,6 +9,7 @@ import it.unimi.dsi.fastutil.chars.Char2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectList;
+import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
@@ -22,9 +25,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static cc.emotion.util.interfaces.Wrapper.mc;
-
-public class FontRenderer implements Closeable {
+public class FontRenderer implements Closeable, Wrapper {
     private static final Char2IntArrayMap colorCodes = new Char2IntArrayMap() {{
         put('0', 0x000000);
         put('1', 0x0000AA);
@@ -136,8 +137,10 @@ public class FontRenderer implements Closeable {
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
 
-        RenderSystem.setShader(GameRenderer::getPositionTexColorProgram);
-        BufferBuilder bb = Tessellator.getInstance().getBuffer();
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX_COLOR);
+        // 获取实例
+        Tessellator tess = Tessellator.getInstance();
+        BufferBuilder bb = tess.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
         Matrix4f mat = stack.peek().getPositionMatrix();
         char[] chars = s.toCharArray();
         float xOffset = 0;
@@ -181,9 +184,9 @@ public class FontRenderer implements Closeable {
         }
         for (Identifier identifier : GLYPH_PAGE_CACHE.keySet()) {
             RenderSystem.setShaderTexture(0, identifier);
-            List<DrawEntry> objects = GLYPH_PAGE_CACHE.get(identifier);
+            java.util.List<DrawEntry> objects = GLYPH_PAGE_CACHE.get(identifier);
 
-            bb.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
+            tess.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
 
             for (DrawEntry object : objects) {
                 float xo = object.atX;
@@ -200,10 +203,10 @@ public class FontRenderer implements Closeable {
                 float u2 = (float) (glyph.u() + glyph.width()) / owner.width;
                 float v2 = (float) (glyph.v() + glyph.height()) / owner.height;
 
-                bb.vertex(mat, xo + 0, yo + h, 0).texture(u1, v2).color(cr, cg, cb, a).next();
-                bb.vertex(mat, xo + w, yo + h, 0).texture(u2, v2).color(cr, cg, cb, a).next();
-                bb.vertex(mat, xo + w, yo + 0, 0).texture(u2, v1).color(cr, cg, cb, a).next();
-                bb.vertex(mat, xo + 0, yo + 0, 0).texture(u1, v1).color(cr, cg, cb, a).next();
+                bb.vertex(mat, xo + 0, yo + h, 0).texture(u1, v2).color(cr, cg, cb, a);
+                bb.vertex(mat, xo + w, yo + h, 0).texture(u2, v2).color(cr, cg, cb, a);
+                bb.vertex(mat, xo + w, yo + 0, 0).texture(u2, v1).color(cr, cg, cb, a);
+                bb.vertex(mat, xo + 0, yo + 0, 0).texture(u1, v1).color(cr, cg, cb, a);
             }
             BufferRenderer.drawWithGlobalProgram(bb.end());
         }
@@ -224,8 +227,11 @@ public class FontRenderer implements Closeable {
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
 
-        RenderSystem.setShader(GameRenderer::getPositionTexColorProgram);
-        BufferBuilder bb = Tessellator.getInstance().getBuffer();
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX_COLOR);
+        // 获取实例
+        Tessellator tess = Tessellator.getInstance();
+        BufferBuilder bb = tess.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
+
         Matrix4f mat = stack.peek().getPositionMatrix();
         char[] chars = s.toCharArray();
         float xOffset = 0;
@@ -235,7 +241,7 @@ public class FontRenderer implements Closeable {
         for (int i = 0; i < chars.length; i++) {
             char c = chars[i];
 
-//            Color color = Nafity.GUI.getColor();
+//            Color color = Voilent.GUI.getColor();
             Color color = new Color(0, 0, 0);
             a = color.getAlpha() / 255f;
 
@@ -257,7 +263,7 @@ public class FontRenderer implements Closeable {
             RenderSystem.setShaderTexture(0, identifier);
             List<DrawEntry> objects = GLYPH_PAGE_CACHE.get(identifier);
 
-            bb.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
+            tess.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
 
             for (DrawEntry object : objects) {
                 float xo = object.atX;
@@ -274,10 +280,10 @@ public class FontRenderer implements Closeable {
                 float u2 = (float) (glyph.u() + glyph.width()) / owner.width;
                 float v2 = (float) (glyph.v() + glyph.height()) / owner.height;
 
-                bb.vertex(mat, xo + 0, yo + h, 0).texture(u1, v2).color(cr, cg, cb, a).next();
-                bb.vertex(mat, xo + w, yo + h, 0).texture(u2, v2).color(cr, cg, cb, a).next();
-                bb.vertex(mat, xo + w, yo + 0, 0).texture(u2, v1).color(cr, cg, cb, a).next();
-                bb.vertex(mat, xo + 0, yo + 0, 0).texture(u1, v1).color(cr, cg, cb, a).next();
+                bb.vertex(mat, xo + 0, yo + h, 0).texture(u1, v2).color(cr, cg, cb, a);
+                bb.vertex(mat, xo + w, yo + h, 0).texture(u2, v2).color(cr, cg, cb, a);
+                bb.vertex(mat, xo + w, yo + 0, 0).texture(u2, v1).color(cr, cg, cb, a);
+                bb.vertex(mat, xo + 0, yo + 0, 0).texture(u1, v1).color(cr, cg, cb, a);
             }
             BufferRenderer.drawWithGlobalProgram(bb.end());
         }
@@ -355,7 +361,7 @@ public class FontRenderer implements Closeable {
 
     @Contract(value = "-> new", pure = true)
     public static @NotNull Identifier randomIdentifier() {
-        return new Identifier("nafity", "temp/" + randomString(32));
+        return Identifier.of("emotion", "temp/" + randomString(32));
     }
 
     private static String randomString(int length) {

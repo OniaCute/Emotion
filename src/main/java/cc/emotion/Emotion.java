@@ -1,10 +1,7 @@
 package cc.emotion;
 
 import cc.emotion.features.event.eventbus.EventBus;
-import cc.emotion.features.managers.EventManager;
-import cc.emotion.features.managers.ModuleManager;
-import cc.emotion.features.managers.TextManager;
-import cc.emotion.features.managers.URLManager;
+import cc.emotion.features.managers.*;
 import cc.emotion.util.other.Console;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
@@ -34,6 +31,7 @@ public class Emotion implements ModInitializer {
     public static EventBus EVENTBUS;
     public static TextManager TEXT;
     public static URLManager URL;
+    public static FontManager FONT;
     public static ModuleManager MODULE;
     public static EventManager EVENTS;
 
@@ -68,11 +66,13 @@ public class Emotion implements ModInitializer {
         EVENTBUS = new EventBus();
         EVENTBUS.registerLambdaFactory("cc.emotion", (lookupInMethod, klass) -> (MethodHandles.Lookup) lookupInMethod.invoke(null, klass, MethodHandles.lookup()));
         // Information define & Intellectual property declaration
+        AUTHORS.add("Voury");
         AUTHORS.add("Onia");
         // Real load
         LOAD_TIME = System.currentTimeMillis();
         TEXT = new TextManager();
         URL = new URLManager();
+        FONT = new FontManager();
         MODULE = new ModuleManager();
         EVENTS = new EventManager();
 

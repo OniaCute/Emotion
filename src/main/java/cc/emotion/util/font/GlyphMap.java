@@ -1,5 +1,6 @@
 package cc.emotion.util.font;
 
+
 import cc.emotion.util.interfaces.Wrapper;
 import it.unimi.dsi.fastutil.chars.Char2ObjectArrayMap;
 import net.minecraft.client.MinecraftClient;

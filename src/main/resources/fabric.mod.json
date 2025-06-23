@@ -10,22 +10,12 @@
   "icon": "assets/emotion/icon.png",
   "environment": "client",
   "entrypoints": {
-    "fabric-datagen": [
-      "cc.emotion.client.EmotionDataGenerator"
-    ],
-    "client": [
-      "cc.emotion.client.EmotionClient"
-    ],
     "main": [
       "cc.emotion.Emotion"
     ]
   },
   "mixins": [
-    "emotion.mixins.json",
-    {
-      "config": "emotion.client.mixins.json",
-      "environment": "client"
-    }
+    "emotion.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",

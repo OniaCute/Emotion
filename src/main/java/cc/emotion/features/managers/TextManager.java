@@ -3,10 +3,11 @@ package cc.emotion.features.managers;
 import cc.emotion.modules.client.Client;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class TextManager {
-    private HashMap<String, String> englishLanguageBase;
-    private HashMap<String, String> chineseLanguageBase;
+    private final Map<String, String> englishLanguageBase = new HashMap<>();
+    private final Map<String, String> chineseLanguageBase = new HashMap<>();
 
     public TextManager() {
         loadEnglish();
@@ -54,7 +55,8 @@ public class TextManager {
     }
 
     public String get(String key) {
-        switch (Client.INSTANCE.language.getValue().name()) {
+//        switch (Client.INSTANCE.language.getValue().name()) {
+        switch ("e") {
             case "Chinese" -> {
                 return chineseLanguageBase.get(key);
             }
@@ -62,6 +64,5 @@ public class TextManager {
                 return englishLanguageBase.get(key);
             }
         }
-
     }
 }

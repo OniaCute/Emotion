@@ -1,5 +1,6 @@
 package cc.emotion.util.font;
 
+
 import net.minecraft.client.util.math.MatrixStack;
 
 public interface FontAdapter {

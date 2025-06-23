@@ -77,7 +77,7 @@ public class RendererFontAdapter implements FontAdapter {
 
     @Override
     public float getFontHeight() {
-        return fontRenderer.getStringHeight("abcdefg123");
+        return fontRenderer.getStringHeight("你好");
     }
 
     @Override

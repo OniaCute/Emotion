@@ -1,7 +1,7 @@
 package cc.emotion.features.event.events;
 
 import cc.emotion.features.event.Event;
-import net.minecraft.client.render.BlockBreakingInfo;
+import net.minecraft.entity.player.BlockBreakingInfo;
 import net.minecraft.util.math.BlockPos;
 
 public class WorldBreakEvent extends Event {

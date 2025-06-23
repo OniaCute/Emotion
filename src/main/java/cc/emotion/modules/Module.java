@@ -5,6 +5,7 @@ import cc.emotion.features.managers.TextManager;
 import cc.emotion.features.options.Option;
 import cc.emotion.features.options.impl.EnumOption;
 import cc.emotion.util.interfaces.Wrapper;
+import net.minecraft.client.gui.DrawContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,12 @@ public class Module implements Wrapper {
     }
 
     public void onTick() {
+    }
+
+    public void onDraw2D(DrawContext context,  float tickDelta) {
+    }
+
+    public void onDraw3D() {
     }
 
     public String getDisplayName() {

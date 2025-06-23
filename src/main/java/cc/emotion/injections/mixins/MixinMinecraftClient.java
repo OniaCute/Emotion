@@ -1,7 +1,6 @@
 package cc.emotion.injections.mixins;
 
 import cc.emotion.Emotion;
-import cc.emotion.util.font.FontRenderers;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
 import net.minecraft.client.world.ClientWorld;
@@ -14,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.nio.ByteBuffer;
 import java.util.Random;
 
 @Mixin(MinecraftClient.class)
@@ -27,7 +27,6 @@ public abstract class MixinMinecraftClient extends ReentrantThreadExecutor<Runna
     @Inject(method = "<init>", at = @At("TAIL"))
     void postWindowInit(RunArgs args, CallbackInfo ci) {
         try {
-            FontRenderers.SMOOTH = FontRenderers.SmoothFont(10f);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -58,6 +57,7 @@ public abstract class MixinMinecraftClient extends ReentrantThreadExecutor<Runna
     public void tick(CallbackInfo info) {
         if (this.world != null) {
             if (Emotion.EVENTS != null && Emotion.LOADED) {
+                Emotion.CONSOLE.logInfo("============================== on Ticked().");
                 Emotion.EVENTS.onTick();
             }
         }

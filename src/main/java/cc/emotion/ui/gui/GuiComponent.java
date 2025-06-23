@@ -1,5 +1,7 @@
 package cc.emotion.ui.gui;
 
+import java.util.ArrayList;
+
 public abstract class GuiComponent {
     protected int id;
     protected String name;
@@ -8,5 +10,10 @@ public abstract class GuiComponent {
     protected double y;
     protected double width;
     protected double height;
-    protected boolean movable = false;
+    protected ArrayList<GuiComponent> subComponents = new ArrayList<GuiComponent>();
+    protected boolean pinned = false;
+
+    public void onDraw() {
+
+    }
 }

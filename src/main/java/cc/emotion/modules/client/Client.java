@@ -18,20 +18,16 @@ public class Client extends Module {
     public Option<Enum<?>> language = addOption(new EnumOption("Language", UIScales.X100));
 
     public enum UIScales {
-        X75,
+        X50,
         X100,
-        X125,
         X150,
-        X175,
         X200
     }
 
     public enum EspScales {
-        X75,
+        X50,
         X100,
-        X125,
         X150,
-        X175,
         X200
     }
 }
