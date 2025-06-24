@@ -6,14 +6,14 @@ public class Console {
     }
 
     public void logAuth(String message, boolean nameless) {
-        System.out.println(nameless ? "" : "[Nafity] " + "[AUTH] " + message);
+        System.out.println(nameless ? "" : "[Emotion] " + "[AUTH] " + message);
     }
     public void logInfo(String message) {
         logInfo(message, false);
     }
 
     public void logInfo(String message, boolean nameless) {
-        System.out.println(nameless ? "" : "[Nafity] " + "[INFO] " + message);
+        System.out.println(nameless ? "" : "[Emotion] " + "[INFO] " + message);
     }
 
     public void logWarn(String message) {
@@ -21,7 +21,7 @@ public class Console {
     }
 
     public void logWarn(String message, boolean nameless) {
-        System.out.println(nameless ? "" : "[Nafity] " + "[WARN] " + message);
+        System.out.println(nameless ? "" : "[Emotion] " + "[WARN] " + message);
     }
 
     public void logError(String message) {
@@ -29,6 +29,6 @@ public class Console {
     }
 
     public void logError(String message, boolean nameless) {
-        System.out.println(nameless ? "" : "[Nafity] " + "[ERROR] " + message);
+        System.out.println(nameless ? "" : "[Emotion] " + "[ERROR] " + message);
     }
 }

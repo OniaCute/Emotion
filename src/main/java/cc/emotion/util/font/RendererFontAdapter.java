@@ -1,8 +1,14 @@
 package cc.emotion.util.font;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.client.render.VertexFormat;
+import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 
 import java.awt.*;
+import java.util.Map;
 
 public class RendererFontAdapter implements FontAdapter {
 

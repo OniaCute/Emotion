@@ -1,21 +1,32 @@
 package cc.emotion.modules.client;
 
+import cc.emotion.features.enums.FontSize;
 import cc.emotion.features.options.Option;
 import cc.emotion.features.options.impl.BooleanOption;
 import cc.emotion.features.options.impl.EnumOption;
 import cc.emotion.modules.Module;
+import cc.emotion.util.font.FontUtil;
+import net.minecraft.client.gui.DrawContext;
+
+import java.awt.*;
 
 public class Client extends Module {
     public static Client INSTANCE;
 
     public Client() {
         super("Client", Category.CLIENT);
+        INSTANCE = this;
     }
 
     public Option<Boolean> sync = addOption(new BooleanOption("Sync"));
     public Option<Enum<?>> UIScale = addOption(new EnumOption("UIScale", UIScales.X100));
     public Option<Enum<?>> EspScale = addOption(new EnumOption("EspScale", UIScales.X100));
     public Option<Enum<?>> language = addOption(new EnumOption("Language", UIScales.X100));
+
+    @Override
+    public void onDraw2D(DrawContext context, float tickDelta) {
+        FontUtil.drawText(context, "Emotion.cc", 5, 5, new Color(255, 255, 255).getRGB(), FontSize.MEDIUM);
+    }
 
     public enum UIScales {
         X50,

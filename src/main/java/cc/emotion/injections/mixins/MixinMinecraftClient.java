@@ -1,6 +1,7 @@
 package cc.emotion.injections.mixins;
 
 import cc.emotion.Emotion;
+import cc.emotion.util.font.FontRenderers;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
 import net.minecraft.client.world.ClientWorld;
@@ -27,6 +28,23 @@ public abstract class MixinMinecraftClient extends ReentrantThreadExecutor<Runna
     @Inject(method = "<init>", at = @At("TAIL"))
     void postWindowInit(RunArgs args, CallbackInfo ci) {
         try {
+            FontRenderers.SMOOTH_3F = FontRenderers.SmoothFont(3f);
+            FontRenderers.SMOOTH_4F = FontRenderers.SmoothFont(4f);
+            FontRenderers.SMOOTH_5F = FontRenderers.SmoothFont(5f);
+            FontRenderers.SMOOTH_6F = FontRenderers.SmoothFont(6f);
+            FontRenderers.SMOOTH_7F = FontRenderers.SmoothFont(7f);
+            FontRenderers.SMOOTH_8F = FontRenderers.SmoothFont(8f);
+            FontRenderers.SMOOTH_9F = FontRenderers.SmoothFont(9f);
+            FontRenderers.SMOOTH_10F = FontRenderers.SmoothFont(10f);
+            FontRenderers.SMOOTH_12F = FontRenderers.SmoothFont(12f);
+            FontRenderers.SMOOTH_14F = FontRenderers.SmoothFont(14f);
+            FontRenderers.SMOOTH_15F = FontRenderers.SmoothFont(15f);
+            FontRenderers.SMOOTH_16F = FontRenderers.SmoothFont(16f);
+            FontRenderers.SMOOTH_18F = FontRenderers.SmoothFont(18f);
+            FontRenderers.SMOOTH_20F = FontRenderers.SmoothFont(20f);
+            FontRenderers.SMOOTH_21F = FontRenderers.SmoothFont(21f);
+            FontRenderers.SMOOTH_24F = FontRenderers.SmoothFont(24f);
+            FontRenderers.SMOOTH_28F = FontRenderers.SmoothFont(28f);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -57,7 +75,6 @@ public abstract class MixinMinecraftClient extends ReentrantThreadExecutor<Runna
     public void tick(CallbackInfo info) {
         if (this.world != null) {
             if (Emotion.EVENTS != null && Emotion.LOADED) {
-                Emotion.CONSOLE.logInfo("============================== on Ticked().");
                 Emotion.EVENTS.onTick();
             }
         }

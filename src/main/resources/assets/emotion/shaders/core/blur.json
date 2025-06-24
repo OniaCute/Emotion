@@ -5,7 +5,7 @@
     "dstrgb": "1-srcalpha"
   },
   "vertex": "position",
-  "fragment": "nafity:blur",
+  "fragment": "emotion:blur",
   "attributes": [],
   "samplers": [
     { "name": "InputSampler" }

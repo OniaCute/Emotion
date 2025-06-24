@@ -31,7 +31,6 @@ public class Emotion implements ModInitializer {
     public static EventBus EVENTBUS;
     public static TextManager TEXT;
     public static URLManager URL;
-    public static FontManager FONT;
     public static ModuleManager MODULE;
     public static EventManager EVENTS;
 
@@ -43,7 +42,7 @@ public class Emotion implements ModInitializer {
     @Override
     public void onInitialize() {
         CONSOLE = new Console();
-        CONSOLE.logInfo("Nafity | Preloaded", true);
+        CONSOLE.logInfo("Emotion | Preloaded", true);
         CONSOLE.logInfo("VERSION: " + VERSION, true);
         CONSOLE.logInfo("Authors: Onia", true);
 
@@ -54,7 +53,7 @@ public class Emotion implements ModInitializer {
         } else {
 //            if (!AuthSystem.doAuth()) {
 //                CONSOLE.logAuth("Auth failed, please check your network status and computer status.");
-//                CONSOLE.logAuth("Nafity will not provide services until you have successfully auth.");
+//                CONSOLE.logAuth("Emotion will not provide services until you have successfully auth.");
 //                mc.stop();
 //            }
             load();
@@ -72,7 +71,6 @@ public class Emotion implements ModInitializer {
         LOAD_TIME = System.currentTimeMillis();
         TEXT = new TextManager();
         URL = new URLManager();
-        FONT = new FontManager();
         MODULE = new ModuleManager();
         EVENTS = new EventManager();
 
