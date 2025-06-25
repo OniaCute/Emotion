@@ -14,6 +14,7 @@ public class Module implements Wrapper {
     private String name;
     private String displayName;
     private Category category;
+    private int priority = 0;
     private boolean status = false; // default disabled
     public List<Option<?>> options = new ArrayList<>();
 
@@ -57,6 +58,14 @@ public class Module implements Wrapper {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     public Category getCategory() {

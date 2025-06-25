@@ -132,7 +132,8 @@ public class FontRenderer implements Closeable, Wrapper {
         stack.scale(1f / this.scaleMul, 1f / this.scaleMul, 1f);
 
         RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
+        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+//        RenderSystem.defaultBlendFunc();
         RenderSystem.disableCull();
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
@@ -222,7 +223,8 @@ public class FontRenderer implements Closeable, Wrapper {
         stack.scale(1f / this.scaleMul, 1f / this.scaleMul, 1f);
 
         RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
+        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+//        RenderSystem.defaultBlendFunc();
         RenderSystem.disableCull();
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);

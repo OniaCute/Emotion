@@ -31,7 +31,9 @@ public class Emotion implements ModInitializer {
     public static EventBus EVENTBUS;
     public static TextManager TEXT;
     public static URLManager URL;
+    public static ThemeManager THEME;
     public static ModuleManager MODULE;
+    public static NotifyManager NOTIFY;
     public static EventManager EVENTS;
 
     // Mod Info Load
@@ -44,7 +46,7 @@ public class Emotion implements ModInitializer {
         CONSOLE = new Console();
         CONSOLE.logInfo("Emotion | Preloaded", true);
         CONSOLE.logInfo("VERSION: " + VERSION, true);
-        CONSOLE.logInfo("Authors: Onia", true);
+        CONSOLE.logInfo("Authors: Voury, Onia", true);
 
         if (!MOD_INFO.getId().equals(MOD_ID)) {
             CONSOLE.logWarn("Fabric mod value check failed!");
@@ -62,17 +64,29 @@ public class Emotion implements ModInitializer {
 
     public static void load() {
         // Pre load
+        CONSOLE.logInfo("Event Bus is loading...");
         EVENTBUS = new EventBus();
+        CONSOLE.logInfo("Event Bus is loaded.");
+        CONSOLE.logInfo("Registering Event bus ...");
         EVENTBUS.registerLambdaFactory("cc.emotion", (lookupInMethod, klass) -> (MethodHandles.Lookup) lookupInMethod.invoke(null, klass, MethodHandles.lookup()));
+        CONSOLE.logInfo("Lambda was loaded.");
         // Information define & Intellectual property declaration
         AUTHORS.add("Voury");
         AUTHORS.add("Onia");
         // Real load
         LOAD_TIME = System.currentTimeMillis();
         TEXT = new TextManager();
+        CONSOLE.logInfo("Text Manager was loaded");
         URL = new URLManager();
+        CONSOLE.logInfo("URL Manager was loaded");
+        THEME = new ThemeManager();
+        CONSOLE.logInfo("Theme Manager was loaded");
         MODULE = new ModuleManager();
+        CONSOLE.logInfo("Module Manager was loaded");
+        NOTIFY = new NotifyManager();
+        CONSOLE.logInfo("Notify Manager was loaded");
         EVENTS = new EventManager();
+        CONSOLE.logInfo("Event Manager was loaded");
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             if (LOADED) {
@@ -87,9 +101,12 @@ public class Emotion implements ModInitializer {
     }
 
     public static void unload() {
+        CONSOLE.logInfo("Client was unloaded.");
         EVENTBUS.listenerMap.clear();
     }
 
-    public static void save() {}
+    public static void save() {
+        CONSOLE.logInfo("Client config is saving...");
+    }
 
 }

@@ -24,6 +24,9 @@ public class TextManager {
         englishLanguageBase.put("Module.Category.MISC.Name", "Misc");
         englishLanguageBase.put("Module.Category.HUD.Name", "HUD");
 
+        englishLanguageBase.put("Theme.Error.Notify.AuthorIsNotExist.title", "Theme Error");
+        englishLanguageBase.put("Theme.Error.Notify.AuthorIsNotExist.description", "The author of the theme does not exist!");
+
         englishLanguageBase.put("Module.Modules.Client.Name", "Client");
         englishLanguageBase.put("Module.Modules.Client.Options.BooleanOption.Sync.name", "SYNC");
         englishLanguageBase.put("Module.Modules.Client.Options.BooleanOption.Sync.description", "Share your Emotion user status so that you can be seen by other users who have enabled Sync and have their Emotion icons displayed.");
@@ -43,6 +46,9 @@ public class TextManager {
         chineseLanguageBase.put("Module.Category.VISUAL.Name", "视觉类");
         chineseLanguageBase.put("Module.Category.MISC.Name", "杂项");
         chineseLanguageBase.put("Module.Category.HUD.Name", "HUD");
+
+        chineseLanguageBase.put("Theme.Error.Notify.AuthorIsNotExist.title", "主题错误");
+        chineseLanguageBase.put("Theme.Error.Notify.AuthorIsNotExist.description", "该主题的作者不存在!");
 
         chineseLanguageBase.put("Module.Category.Client.Name", "客户端");
         chineseLanguageBase.put("Module.Modules.Client.Options.BooleanOption.Sync.name", "SYNC");

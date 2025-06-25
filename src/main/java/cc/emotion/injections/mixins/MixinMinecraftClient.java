@@ -51,24 +51,21 @@ public abstract class MixinMinecraftClient extends ReentrantThreadExecutor<Runna
     }
 
     /**
-     * @author OniaCute & love
+     * @author Onia/Voury & love
      * @reason No Reason, just change the Title.
      */
     @Overwrite
     private String getWindowTitle() {
         String[] text = {
                 "Get unique sense of the Minecraft.",
-                "Bypass it, Beat it, Got it."
+                "No crack, No leak, No deserted."
         };
 
         Random random = new Random();
         int randomIndex = random.nextInt(text.length);
         String randomSentence = text[randomIndex];
-        StringBuilder stringBuilder = new StringBuilder("Emotion Client | ");
-        stringBuilder.append(randomSentence);
-        stringBuilder.append("  -  emotionclient.cc");
 
-        return stringBuilder.toString();
+        return "Emotion Client | " + randomSentence + "  -  emotionclient.cc";
     }
 
     @Inject(at = @At("HEAD"), method = "tick()V")

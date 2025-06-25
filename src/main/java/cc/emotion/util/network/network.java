@@ -4,18 +4,16 @@ import cc.emotion.Emotion;
 import cc.emotion.features.account.*;
 import cc.emotion.features.managers.URLManager;
 import cc.emotion.util.data.JsonUtil;
-import com.google.gson.JsonArray;
-import net.minecraft.network.packet.Packet;
 
 import java.util.Date;
 import java.util.HashMap;
 
 public class network {
-    public static EmotionAccount login(String accountName, String password, String HWID) {
+    public static EmotionLocalAccount login(String accountName, String password, String HWID) {
         HashMap<?, ?> result = JsonUtil.stringToHashMap(Emotion.URL.getResponse(URLManager.serverAccountAddress + "?action=" + ActionType.PasswordLogin.name() + "&u=" + accountName + "&p=" + password + "&h=" + HWID));
         if (result.get("status") == "0") {
             if (result.get("result") == "true") {
-                return new EmotionAccount(
+                return new EmotionLocalAccount(
                         (String) result.get("account_username"),
                         (AccountStatus) result.get("account_status"),
                         (SubscriptionTypes) result.get("account_sub"),
@@ -38,11 +36,11 @@ public class network {
         return null;
     }
 
-    public static EmotionAccount login(LoginToken token, String HWID) {
+    public static EmotionLocalAccount login(LoginToken token, String HWID) {
         HashMap<?, ?> result = JsonUtil.stringToHashMap(Emotion.URL.getResponse(URLManager.serverAccountAddress + "?action=" + ActionType.CheckLoginToken.name() + "&t=" + token.token + "&h=" + HWID));
         if (result.get("status") == "0") {
             if (result.get("result") == "true") {
-                return new EmotionAccount(
+                return new EmotionLocalAccount(
                         (String) result.get("account_username"),
                         (AccountStatus) result.get("account_status"),
                         (SubscriptionTypes) result.get("account_sub"),
@@ -65,11 +63,11 @@ public class network {
         return null;
     }
 
-    public static String getUserStatus(EmotionAccount account) {
+    public static String getUserStatus(EmotionLocalAccount account) {
         return account.status.name();
     }
 
-    public static String getUserSubscription(EmotionAccount account) {
+    public static String getUserSubscription(EmotionLocalAccount account) {
         return account.subscription.name();
     }
 }

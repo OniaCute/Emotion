@@ -3,6 +3,7 @@ package cc.emotion.features.managers;
 import cc.emotion.Emotion;
 import cc.emotion.modules.Module;
 import cc.emotion.modules.client.Client;
+import cc.emotion.modules.client.Notify;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ public class ModuleManager {
 
     public ModuleManager() {
         registerModule(new Client());
+        registerModule(new Notify());
     }
 
     public void registerModule(Module module) {

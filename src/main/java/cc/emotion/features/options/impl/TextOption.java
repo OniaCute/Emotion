@@ -4,10 +4,10 @@ import cc.emotion.features.options.Option;
 
 public class TextOption extends Option<String> {
     public TextOption(String name) {
-        super(name, "", "");
+        super(name, "", "", v -> true);
     }
     public TextOption(String name, String defaultValue) {
-        super(name, "", defaultValue);
+        super(name, "", defaultValue, v -> true);
     }
 
     @Override

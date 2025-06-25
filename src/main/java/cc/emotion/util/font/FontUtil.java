@@ -1,6 +1,7 @@
 package cc.emotion.util.font;
 
 import cc.emotion.Emotion;
+import cc.emotion.features.enums.Aligns;
 import cc.emotion.features.enums.FontScales;
 import cc.emotion.features.enums.FontSize;
 import cc.emotion.modules.client.Client;
@@ -109,41 +110,106 @@ public class FontUtil implements Wrapper {
         return FontRenderers.SMOOTH_10F.getFontHeight(text);
     }
 
-    public static void drawText(DrawContext context, String text, double x, double y, Color color, FontSize size) {
-        drawText(context, text, (float) x, (float) y, color.getRGB(), size);
+    public static void drawText(DrawContext context, String text, double x, double y, Color color, FontSize size, boolean shadow) {
+        drawText(context, text, x, y, color.getRGB(), size, shadow);
     }
 
-    public static void drawText(DrawContext context, String text, float x, float y, Color color, FontSize size) {
-        drawText(context, text, x, y, color.getRGB(), size);
+    public static void drawText(DrawContext context, String text, double x, double y, Color color, FontSize size) {
+        drawText(context, text, x, y, color.getRGB(), size, false);
     }
 
     public static void drawText(DrawContext context, String text, double x, double y, int color, FontSize size) {
-        drawText(context, text, (float) x, (float) y, color, size);
+        drawText(context, text, x, y, color, size, false);
     }
 
-    public static void drawText(DrawContext context, String text, float x, float y, int color, FontSize size) {
+    public static void drawText(DrawContext context, String text, double x, double y, int color, FontSize size, boolean shadow) {
         if (Client.INSTANCE == null) {return ;}
 
-        Emotion.CONSOLE.logInfo("============================== on Gotten().");
         FontScales fontScales = asFontScales((Client.UIScales) Client.INSTANCE.UIScale.getValue(), size);
         switch (fontScales) {
-            case SMOOTH_3F -> FontRenderers.SMOOTH_3F.drawString(context.getMatrices(), text, x, y, color);
-            case SMOOTH_4F -> FontRenderers.SMOOTH_4F.drawString(context.getMatrices(), text, x, y, color);
-            case SMOOTH_5F -> FontRenderers.SMOOTH_5F.drawString(context.getMatrices(), text, x, y, color);
-            case SMOOTH_6F -> FontRenderers.SMOOTH_6F.drawString(context.getMatrices(), text, x, y, color);
-            case SMOOTH_7F -> FontRenderers.SMOOTH_7F.drawString(context.getMatrices(), text, x, y, color);
-            case SMOOTH_8F -> FontRenderers.SMOOTH_8F.drawString(context.getMatrices(), text, x, y, color);
-            case SMOOTH_9F -> FontRenderers.SMOOTH_9F.drawString(context.getMatrices(), text, x, y, color);
-            case SMOOTH_10F -> FontRenderers.SMOOTH_10F.drawString(context.getMatrices(), text, x, y, color);
-            case SMOOTH_12F -> FontRenderers.SMOOTH_12F.drawString(context.getMatrices(), text, x, y, color);
-            case SMOOTH_14F -> FontRenderers.SMOOTH_14F.drawString(context.getMatrices(), text, x, y, color);
-            case SMOOTH_15F -> FontRenderers.SMOOTH_15F.drawString(context.getMatrices(), text, x, y, color);
-            case SMOOTH_16F -> FontRenderers.SMOOTH_16F.drawString(context.getMatrices(), text, x, y, color);
-            case SMOOTH_18F -> FontRenderers.SMOOTH_18F.drawString(context.getMatrices(), text, x, y, color);
-            case SMOOTH_20F -> FontRenderers.SMOOTH_20F.drawString(context.getMatrices(), text, x, y, color);
-            case SMOOTH_21F -> FontRenderers.SMOOTH_21F.drawString(context.getMatrices(), text, x, y, color);
-            case SMOOTH_24F -> FontRenderers.SMOOTH_24F.drawString(context.getMatrices(), text, x, y, color);
-            case SMOOTH_28F -> FontRenderers.SMOOTH_28F.drawString(context.getMatrices(), text, x, y, color);
+            case SMOOTH_3F -> FontRenderers.SMOOTH_3F.drawString(context.getMatrices(), text, x, y, color, shadow);
+            case SMOOTH_4F -> FontRenderers.SMOOTH_4F.drawString(context.getMatrices(), text, x, y, color, shadow);
+            case SMOOTH_5F -> FontRenderers.SMOOTH_5F.drawString(context.getMatrices(), text, x, y, color, shadow);
+            case SMOOTH_6F -> FontRenderers.SMOOTH_6F.drawString(context.getMatrices(), text, x, y, color, shadow);
+            case SMOOTH_7F -> FontRenderers.SMOOTH_7F.drawString(context.getMatrices(), text, x, y, color, shadow);
+            case SMOOTH_8F -> FontRenderers.SMOOTH_8F.drawString(context.getMatrices(), text, x, y, color, shadow);
+            case SMOOTH_9F -> FontRenderers.SMOOTH_9F.drawString(context.getMatrices(), text, x, y, color, shadow);
+            case SMOOTH_10F -> FontRenderers.SMOOTH_10F.drawString(context.getMatrices(), text, x, y, color, shadow);
+            case SMOOTH_12F -> FontRenderers.SMOOTH_12F.drawString(context.getMatrices(), text, x, y, color, shadow);
+            case SMOOTH_14F -> FontRenderers.SMOOTH_14F.drawString(context.getMatrices(), text, x, y, color, shadow);
+            case SMOOTH_15F -> FontRenderers.SMOOTH_15F.drawString(context.getMatrices(), text, x, y, color, shadow);
+            case SMOOTH_16F -> FontRenderers.SMOOTH_16F.drawString(context.getMatrices(), text, x, y, color, shadow);
+            case SMOOTH_18F -> FontRenderers.SMOOTH_18F.drawString(context.getMatrices(), text, x, y, color, shadow);
+            case SMOOTH_20F -> FontRenderers.SMOOTH_20F.drawString(context.getMatrices(), text, x, y, color, shadow);
+            case SMOOTH_21F -> FontRenderers.SMOOTH_21F.drawString(context.getMatrices(), text, x, y, color, shadow);
+            case SMOOTH_24F -> FontRenderers.SMOOTH_24F.drawString(context.getMatrices(), text, x, y, color, shadow);
+            case SMOOTH_28F -> FontRenderers.SMOOTH_28F.drawString(context.getMatrices(), text, x, y, color, shadow);
         }
+    }
+
+    public static void drawTextWithAlign(DrawContext context, String text, double x, double y, double ex, double ey, Aligns align, Color color, FontSize size) {
+        drawTextWithAlign(context, text, x, y, ex, ey, align, color.getRGB(), size, true);
+    }
+
+    public static void drawTextWithAlign(DrawContext context, String text, double x, double y, double ex, double ey, Aligns align, int color, FontSize size) {
+        drawTextWithAlign(context, text, x, y, ex, ey, align, color, size, true);
+    }
+
+    public static void drawTextWithAlign(DrawContext context, String text, double x, double y, double ex, double ey, Aligns align, Color color, FontSize size, boolean shadow) {
+        drawTextWithAlign(context, text, x, y, ex, ey, align, color.getRGB(), size, shadow);
+    }
+
+    public static void drawTextWithAlign(DrawContext context, String text, double x, double y, double ex, double ey, Aligns align, int color, FontSize size, boolean shadow) {
+        if (Client.INSTANCE == null) return;
+
+        FontScales fontScales = asFontScales((Client.UIScales) Client.INSTANCE.UIScale.getValue(), size);
+        double textWidth = getWidth(size, text);
+        double textHeight = getHeight(size, text);
+
+        double startX = x;
+        double startY = y;
+        double endX = ex;
+        double endY = ey;
+
+        startY = switch (align) {
+            case LEFT -> {
+                startX = x; // 保持 x 不变
+                yield y + (endY - y - textHeight) / 2; // 垂直居中
+            }
+            case CENTER -> {
+                startX = x + (endX - x - textWidth) / 2; // 水平居中
+                yield y + (endY - y - textHeight) / 2; // 垂直居中
+            }
+            case RIGHT -> {
+                startX = ex - textWidth; // 保持文本右边缘与 ex 对齐
+                yield y + (endY - y - textHeight) / 2; // 垂直居中
+            }
+            case TOP -> {
+                startX = x + (endX - x - textWidth) / 2; // 水平居中
+                yield y; // 保持 y 不变
+            }
+            case BOTTOM -> {
+                startX = x + (endX - x - textWidth) / 2; // 水平居中
+                yield ey - textHeight; // 保持文本底边缘与 ey 对齐
+            }
+            case LEFT_TOP -> {
+                startX = x; // 保持 x 不变
+                yield y; // 保持 y 不变
+            }
+            case LEFT_BOTTOM -> {
+                startX = x; // 保持 x 不变
+                yield ey - textHeight; // 保持文本底边缘与 ey 对齐
+            }
+            case RIGHT_TOP -> {
+                startX = ex - textWidth; // 保持文本右边缘与 ex 对齐
+                yield y; // 保持 y 不变
+            }
+            case RIGHT_BOTTOM -> {
+                startX = ex - textWidth; // 保持文本右边缘与 ex 对齐
+                yield ey - textHeight; // 保持文本底边缘与 ey 对齐
+            }
+        };
+
+        drawText(context, text, startX, startY, color, size, shadow);
     }
 }

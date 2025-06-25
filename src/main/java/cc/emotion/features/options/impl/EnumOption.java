@@ -7,7 +7,7 @@ import java.util.List;
 
 public class EnumOption extends Option<Enum<?>> {
     public EnumOption(String name, Enum<?> value) {
-        super(name, value);
+        super(name, value, v -> true);
     }
 
     @Override

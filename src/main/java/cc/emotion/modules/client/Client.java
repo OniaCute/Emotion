@@ -1,11 +1,11 @@
 package cc.emotion.modules.client;
 
-import cc.emotion.features.enums.FontSize;
 import cc.emotion.features.options.Option;
 import cc.emotion.features.options.impl.BooleanOption;
+import cc.emotion.features.options.impl.DoubleOption;
 import cc.emotion.features.options.impl.EnumOption;
 import cc.emotion.modules.Module;
-import cc.emotion.util.font.FontUtil;
+import cc.emotion.util.render.Render2DUtil;
 import net.minecraft.client.gui.DrawContext;
 
 import java.awt.*;
@@ -25,7 +25,7 @@ public class Client extends Module {
 
     @Override
     public void onDraw2D(DrawContext context, float tickDelta) {
-        FontUtil.drawText(context, "Emotion.cc", 5, 5, new Color(255, 255, 255).getRGB(), FontSize.MEDIUM);
+        Render2DUtil.drawRoundedRect(context.getMatrices(), 10, 10, 60, 60, 6, new Color(0,0,0));
     }
 
     public enum UIScales {

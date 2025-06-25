@@ -1,5 +1,7 @@
 package cc.emotion.ui.gui;
 
+import net.minecraft.client.gui.DrawContext;
+
 import java.util.ArrayList;
 
 public abstract class GuiComponent {
@@ -13,7 +15,6 @@ public abstract class GuiComponent {
     protected ArrayList<GuiComponent> subComponents = new ArrayList<GuiComponent>();
     protected boolean pinned = false;
 
-    public void onDraw() {
-
+    public void onDraw(DrawContext context, float tickDelta) {
     }
 }

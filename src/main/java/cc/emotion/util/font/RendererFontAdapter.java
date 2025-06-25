@@ -102,6 +102,11 @@ public class RendererFontAdapter implements FontAdapter {
     }
 
     @Override
+    public void drawString(MatrixStack matrices, String s, double x, double y, int color, boolean dropShadow) {
+        drawString(matrices, s, x, y, color);
+    }
+
+    @Override
     public void drawString(MatrixStack matrices, String s, float x, float y, float r, float g, float b, float a, boolean dropShadow) {
         drawString(matrices, s, x, y, r, g, b, a);
     }
