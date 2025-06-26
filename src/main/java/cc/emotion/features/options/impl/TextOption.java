@@ -9,7 +9,6 @@ public class TextOption extends Option<String> {
     public TextOption(String name, String defaultValue) {
         super(name, "", defaultValue, v -> true);
     }
-
     @Override
     public void setValue(String value) {
         super.setValue(value);

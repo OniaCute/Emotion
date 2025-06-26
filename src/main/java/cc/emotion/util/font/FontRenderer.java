@@ -124,7 +124,7 @@ public class FontRenderer implements Closeable, Wrapper {
         drawString(stack, s, x + 1, y + 1, 0, 0, 0, a, true);
         drawString(stack, s, x, y, r, g, b, a, false);
     }
-    public void drawString(@NotNull MatrixStack stack, @NotNull String s, float x, float y, float r, float g, float b, float a, boolean shadow) {
+    public void drawString(MatrixStack stack, String s, float x, float y, float r, float g, float b, float a, boolean shadow) {
         sizeCheck();
         float r2 = r, g2 = g, b2 = b;
         stack.push();
@@ -132,14 +132,12 @@ public class FontRenderer implements Closeable, Wrapper {
         stack.scale(1f / this.scaleMul, 1f / this.scaleMul, 1f);
 
         RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-//        RenderSystem.defaultBlendFunc();
+        RenderSystem.defaultBlendFunc();
         RenderSystem.disableCull();
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
 
         RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX_COLOR);
-        // 获取实例
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder bb = tess.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
         Matrix4f mat = stack.peek().getPositionMatrix();
@@ -222,9 +220,9 @@ public class FontRenderer implements Closeable, Wrapper {
         stack.translate(x, y, 0);
         stack.scale(1f / this.scaleMul, 1f / this.scaleMul, 1f);
 
-        RenderSystem.enableBlend();
+//        RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-//        RenderSystem.defaultBlendFunc();
+        RenderSystem.defaultBlendFunc();
         RenderSystem.disableCull();
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
@@ -242,8 +240,6 @@ public class FontRenderer implements Closeable, Wrapper {
         float a = 1f;
         for (int i = 0; i < chars.length; i++) {
             char c = chars[i];
-
-//            Color color = Voilent.GUI.getColor();
             Color color = new Color(0, 0, 0);
             a = color.getAlpha() / 255f;
 

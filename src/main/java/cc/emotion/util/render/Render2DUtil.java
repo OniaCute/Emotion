@@ -1,5 +1,6 @@
 package cc.emotion.util.render;
 
+import cc.emotion.modules.client.Client;
 import cc.emotion.util.interfaces.Wrapper;
 import cc.emotion.util.math.MathUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -27,18 +28,23 @@ public class Render2DUtil implements Wrapper {
     }
 
     public static void drawRect(DrawContext context, double x, double y, double width, double height, Color color) {
-        drawRect(context, x, y, width, height, color.getRGB());
+        drawRect(context, (x * getScaleFactor()), (y * getScaleFactor()), ((width) * getScaleFactor()), ((height) * getScaleFactor()), color.getRGB());
     }
 
     public static void drawRect(DrawContext context, double x, double y, double width, double height, int color) {
-        drawRect(context, (float) x, (float) y, (float) width, (float) height, color);
+        drawRect(context, (float) (x * getScaleFactor()), (float) (y * getScaleFactor()), (float) (width * getScaleFactor()), (float) (height * getScaleFactor()), color);
     }
 
     public static void drawRect(DrawContext context, float x, float y, float width, float height, int color) {
-        context.fill((int) x, (int) y, (int) (x + width), (int) (y + height), color);
+        context.fill((int) (x * getScaleFactor()), (int) (y * getScaleFactor()), (int) ((x + width) * getScaleFactor()), (int) ((y + height) * getScaleFactor()), color);
     }
 
     public static void drawRect(DrawContext context, float x, float y, float width, float height, int color, float outlineWidth, int outlineColor) {
+        x = (x * getScaleFactor());
+        y = (y * getScaleFactor());
+        width = ((width + x) * getScaleFactor());
+        height = ((height + y) * getScaleFactor());
+
         context.fill((int) x, (int) y, (int) (x + width), (int) (y + height), color);
         context.fill((int) x, (int) y, (int) (x + width), (int) (y + outlineWidth), outlineColor);
         context.fill((int) x, (int) (y + height - outlineWidth), (int) (x + width), (int) (y + height), outlineColor);
@@ -47,16 +53,102 @@ public class Render2DUtil implements Wrapper {
     }
 
     public static void drawRoundedRect(MatrixStack matrices, float x, float y, float width, float height, float radius, int color) {
-        renderRounded(matrices, new Color(color), x, y, width + x, height + y, radius, 8);
+        renderRounded(matrices, new Color(color), x, y, width + x, height + y, radius, 64);
     }
 
     public static void drawRoundedRect(MatrixStack matrices, float x, float y, float width, float height, float radius, Color color) {
-        renderRounded(matrices, color, x, y, width + x, height + y, radius, 64);
+        renderRounded(matrices, color, (x * getScaleFactor()), (y * getScaleFactor()), ((width + x) * getScaleFactor()), ((height + y) * getScaleFactor()), ((radius * getScaleFactor())), 64);
     }
 
     public static void drawRoundedRect(MatrixStack matrices, double x, double y, double width, double height, double radius, Color color) {
         drawRoundedRect(matrices, (float) x, (float) y, (float) width, (float) height, (float) radius, color);
     }
+
+    public static void drawCircle(MatrixStack matrices, Color c, double originX, double originY, double radius, int segments) {
+        originX *= getScaleFactor();
+        originY *= getScaleFactor();
+        radius *= getScaleFactor();
+        int segments1 = MathHelper.clamp(segments, 4, 360);
+        int color = c.getRGB();
+
+        Matrix4f matrix = matrices.peek().getPositionMatrix();
+        float f = transformColor((float) (color >> 24 & 255) / 255.0F);
+        float g = (float) (color >> 16 & 255) / 255.0F;
+        float h = (float) (color >> 8 & 255) / 255.0F;
+        float k = (float) (color & 255) / 255.0F;
+        BufferBuilder bufferBuilder = Tessellator.getInstance().begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
+        enableRender();
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_COLOR);
+        Tessellator.getInstance().begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
+        for (int i = 0; i < 360; i += Math.min(360 / segments1, 360 - i)) {
+            double radians = Math.toRadians(i);
+            double sin = Math.sin(radians) * radius;
+            double cos = Math.cos(radians) * radius;
+            bufferBuilder.vertex(matrix, (float) (originX + sin), (float) (originY + cos), 0).color(g, h, k, f);
+        }
+        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
+    }
+
+    public static void drawCircleWithInline(MatrixStack matrices, Color baseColor, Color inlineColor,
+                                            double originX, double originY, double radius,
+                                            float inlineDistance, float inlineWidth, int segments) {
+        inlineDistance *= getScaleFactor();
+        inlineWidth *= getScaleFactor();
+
+        drawCircle(matrices, baseColor, originX, originY, radius, segments);
+
+        originX *= getScaleFactor();
+        originY *= getScaleFactor();
+        radius *= getScaleFactor();
+        int clampedSegments = MathHelper.clamp(segments, 8, 360);
+        Matrix4f matrix = matrices.peek().getPositionMatrix();
+
+        float br = baseColor.getRed() / 255f;
+        float bg = baseColor.getGreen() / 255f;
+        float bb = baseColor.getBlue() / 255f;
+        float ba = transformColor(baseColor.getAlpha() / 255f);
+
+        float ir = inlineColor.getRed() / 255f;
+        float ig = inlineColor.getGreen() / 255f;
+        float ib = inlineColor.getBlue() / 255f;
+        float ia = transformColor(inlineColor.getAlpha() / 255f);
+
+        enableRender();
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_COLOR);
+
+        // 1. 绘制圆环
+        float innerR = (float) (radius - inlineDistance - inlineWidth);
+        float outerR = (float) (radius - inlineDistance);
+        if (innerR > 0 && inlineWidth > 0) {
+            BufferBuilder buffer = Tessellator.getInstance().begin(VertexFormat.DrawMode.TRIANGLE_STRIP, VertexFormats.POSITION_COLOR);
+            for (int i = 0; i <= clampedSegments; i++) {
+                double angle = 2 * Math.PI * i / clampedSegments;
+                float cos = (float) Math.cos(angle);
+                float sin = (float) Math.sin(angle);
+
+                buffer.vertex(matrix, (float) (originX + cos * outerR), (float) (originY + sin * outerR), 0).color(ir, ig, ib, ia);
+                buffer.vertex(matrix, (float) (originX + cos * innerR), (float) (originY + sin * innerR), 0).color(ir, ig, ib, ia);
+            }
+            BufferRenderer.drawWithGlobalProgram(buffer.end());
+        }
+
+        // 2. 清空圆环内部（主色）
+        if (innerR > 0) {
+            BufferBuilder buffer = Tessellator.getInstance().begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
+            buffer.vertex(matrix, (float) originX, (float) originY, 0).color(br, bg, bb, ba);
+            for (int i = 0; i <= clampedSegments; i++) {
+                double angle = 2 * Math.PI * i / clampedSegments;
+                float x = (float) (originX + Math.cos(angle) * innerR);
+                float y = (float) (originY + Math.sin(angle) * innerR);
+                buffer.vertex(matrix, x, y, 0).color(br, bg, bb, ba);
+            }
+            BufferRenderer.drawWithGlobalProgram(buffer.end());
+        }
+
+        disableRender();
+    }
+
+
 
     public static void renderRounded(MatrixStack matrices, Color c, double fromX, double fromY, double toX, double toY, double radius, double samples) {
         enableRender();
@@ -162,5 +254,21 @@ public class Render2DUtil implements Wrapper {
 
     public static double interpolate(double oldValue, double newValue, double interpolationValue) {
         return (oldValue + (newValue - oldValue) * interpolationValue);
+    }
+
+    public static float transformColor(float f) {
+        return AlphaOverride.compute((int) (f * 255)) / 255f;
+    }
+
+    public static float getScaleFactor() {
+        if (Client.INSTANCE == null || Client.INSTANCE.UIScale == null) {
+            return 1.0f;
+        }
+        return switch ((Client.UIScales) Client.INSTANCE.UIScale.getValue()) {
+            case X50 -> 0.5f;
+            case X150 -> 1.5f;
+            case X200 -> 2.0f;
+            default -> 1.0f;
+        };
     }
 }

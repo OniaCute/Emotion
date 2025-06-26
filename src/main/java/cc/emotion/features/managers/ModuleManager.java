@@ -18,6 +18,7 @@ public class ModuleManager {
 
     public void registerModule(Module module) {
         modules.add(module);
+        module.onRegister();
         Emotion.CONSOLE.logInfo("Module \"" + module.getDisplayName() + "\" is loaded.");
     }
 }

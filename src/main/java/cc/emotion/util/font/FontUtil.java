@@ -159,57 +159,72 @@ public class FontUtil implements Wrapper {
         drawTextWithAlign(context, text, x, y, ex, ey, align, color.getRGB(), size, shadow);
     }
 
-    public static void drawTextWithAlign(DrawContext context, String text, double x, double y, double ex, double ey, Aligns align, int color, FontSize size, boolean shadow) {
+    public static void drawTextWithAlign(DrawContext context, String text, double originalX, double originalY, double originalEx, double originalEy, Aligns align, int color, FontSize size, boolean shadow) {
         if (Client.INSTANCE == null) return;
 
         FontScales fontScales = asFontScales((Client.UIScales) Client.INSTANCE.UIScale.getValue(), size);
-        double textWidth = getWidth(size, text);
-        double textHeight = getHeight(size, text);
+        double textWidth = getWidth(size, text) * getScaleFactor();
+        double textHeight = getHeight(size, text) * getScaleFactor();
 
-        double startX = x;
-        double startY = y;
-        double endX = ex;
-        double endY = ey;
+        float scaleFactor = getScaleFactor();
+        double startX = originalX * scaleFactor;
+        double startY = originalY * scaleFactor;
+        double endX = originalEx * scaleFactor;
+        double endY = originalEy * scaleFactor;
 
-        startY = switch (align) {
-            case LEFT -> {
-                startX = x; // 保持 x 不变
-                yield y + (endY - y - textHeight) / 2; // 垂直居中
-            }
-            case CENTER -> {
-                startX = x + (endX - x - textWidth) / 2; // 水平居中
-                yield y + (endY - y - textHeight) / 2; // 垂直居中
-            }
-            case RIGHT -> {
-                startX = ex - textWidth; // 保持文本右边缘与 ex 对齐
-                yield y + (endY - y - textHeight) / 2; // 垂直居中
-            }
-            case TOP -> {
-                startX = x + (endX - x - textWidth) / 2; // 水平居中
-                yield y; // 保持 y 不变
-            }
-            case BOTTOM -> {
-                startX = x + (endX - x - textWidth) / 2; // 水平居中
-                yield ey - textHeight; // 保持文本底边缘与 ey 对齐
-            }
-            case LEFT_TOP -> {
-                startX = x; // 保持 x 不变
-                yield y; // 保持 y 不变
-            }
-            case LEFT_BOTTOM -> {
-                startX = x; // 保持 x 不变
-                yield ey - textHeight; // 保持文本底边缘与 ey 对齐
-            }
-            case RIGHT_TOP -> {
-                startX = ex - textWidth; // 保持文本右边缘与 ex 对齐
-                yield y; // 保持 y 不变
-            }
-            case RIGHT_BOTTOM -> {
-                startX = ex - textWidth; // 保持文本右边缘与 ex 对齐
-                yield ey - textHeight; // 保持文本底边缘与 ey 对齐
-            }
-        };
+        // 根据对齐方式调整坐标
+        switch (align) {
+            case LEFT:
+                startX = originalX * scaleFactor;
+                startY = ((originalY + originalEy) / 2 - textHeight / 2) * scaleFactor;
+                break;
+            case RIGHT:
+                startX = (originalEx - textWidth) * scaleFactor;
+                startY = ((originalY + originalEy) / 2 - textHeight / 2) * scaleFactor;
+                break;
+            case CENTER:
+                startX = ((originalX + originalEx) / 2) * scaleFactor;
+                startY = ((originalY + originalEy) / 2 - textHeight / 2) * scaleFactor;
+                break;
+            case TOP:
+                startX = ((originalX + originalEx) / 2 - textWidth / 2) * scaleFactor;
+                startY = originalY * scaleFactor;
+                break;
+            case BOTTOM:
+                startX = ((originalX + originalEx) / 2 - textWidth / 2) * scaleFactor;
+                startY = (originalEy - textHeight) * scaleFactor;
+                break;
+            case LEFT_TOP:
+                startX = originalX * scaleFactor;
+                startY = originalY * scaleFactor;
+                break;
+            case LEFT_BOTTOM:
+                startX = originalX * scaleFactor;
+                startY = (originalEy - textHeight) * scaleFactor;
+                break;
+            case RIGHT_TOP:
+                startX = (originalEx - textWidth) * scaleFactor;
+                startY = originalY * scaleFactor;
+                break;
+            case RIGHT_BOTTOM:
+                startX = (originalEx - textWidth) * scaleFactor;
+                startY = (originalEy - textHeight) * scaleFactor;
+                break;
+        }
 
+        // 绘制文本
         drawText(context, text, startX, startY, color, size, shadow);
+    }
+
+    public static float getScaleFactor() {
+        if (Client.INSTANCE == null || Client.INSTANCE.UIScale == null) {
+            return 1.0f;
+        }
+        return switch ((Client.UIScales) Client.INSTANCE.UIScale.getValue()) {
+            case X50 -> 0.5f;
+            case X150 -> 1.5f;
+            case X200 -> 2.0f;
+            default -> 1.0f;
+        };
     }
 }

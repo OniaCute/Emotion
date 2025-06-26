@@ -1,5 +1,6 @@
 package cc.emotion.modules.client;
 
+import cc.emotion.Emotion;
 import cc.emotion.features.options.Option;
 import cc.emotion.features.options.impl.BooleanOption;
 import cc.emotion.features.options.impl.DoubleOption;
@@ -22,6 +23,13 @@ public class Client extends Module {
     public Option<Enum<?>> UIScale = addOption(new EnumOption("UIScale", UIScales.X100));
     public Option<Enum<?>> EspScale = addOption(new EnumOption("EspScale", UIScales.X100));
     public Option<Enum<?>> language = addOption(new EnumOption("Language", UIScales.X100));
+
+    @Override
+    public void onRegister() {
+        Emotion.CONSOLE.logInfo("[Module Client] init click gui ...");
+        Emotion.GUI.initClickGui();
+        Emotion.CONSOLE.logInfo("[Module Client] finished!");
+    }
 
     @Override
     public void onDraw2D(DrawContext context, float tickDelta) {

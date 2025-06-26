@@ -35,10 +35,16 @@ public class Module implements Wrapper {
     public void onDisable() {
     }
 
+    public void onRegister() {
+    }
+
     public void onTick() {
     }
 
     public void onDraw2D(DrawContext context,  float tickDelta) {
+    }
+
+    public void onMouseMoveInClickGuiScreen(DrawContext context,  double mouseX, double mouseY) {
     }
 
     public void onDraw3D() {
@@ -73,7 +79,7 @@ public class Module implements Wrapper {
     }
 
     public String getCategoryDisplayName(Category category) {
-        return Emotion.TEXT.get("Module.Category." + name + ".Name");
+        return Emotion.TEXT.get("Module.Category." + name + ".name");
     }
 
     public List<Option<?>> getOptionsList() {

@@ -29,9 +29,10 @@ public class Emotion implements ModInitializer {
     // Manager & Preload
     public static Console CONSOLE;
     public static EventBus EVENTBUS;
-    public static TextManager TEXT;
     public static URLManager URL;
+    public static TextManager TEXT;
     public static ThemeManager THEME;
+    public static GuiManager GUI;
     public static ModuleManager MODULE;
     public static NotifyManager NOTIFY;
     public static EventManager EVENTS;
@@ -75,12 +76,14 @@ public class Emotion implements ModInitializer {
         AUTHORS.add("Onia");
         // Real load
         LOAD_TIME = System.currentTimeMillis();
-        TEXT = new TextManager();
-        CONSOLE.logInfo("Text Manager was loaded");
         URL = new URLManager();
         CONSOLE.logInfo("URL Manager was loaded");
+        TEXT = new TextManager();
+        CONSOLE.logInfo("Text Manager was loaded");
         THEME = new ThemeManager();
         CONSOLE.logInfo("Theme Manager was loaded");
+        GUI = new GuiManager();
+        CONSOLE.logInfo("GUI Manager was loaded");
         MODULE = new ModuleManager();
         CONSOLE.logInfo("Module Manager was loaded");
         NOTIFY = new NotifyManager();
