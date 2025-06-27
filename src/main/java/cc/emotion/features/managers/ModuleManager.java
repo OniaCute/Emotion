@@ -3,6 +3,7 @@ package cc.emotion.features.managers;
 import cc.emotion.Emotion;
 import cc.emotion.modules.Module;
 import cc.emotion.modules.client.Client;
+import cc.emotion.modules.client.HudEditor;
 import cc.emotion.modules.client.Notify;
 
 import java.util.ArrayList;
@@ -14,9 +15,11 @@ public class ModuleManager {
     public ModuleManager() {
         registerModule(new Client());
         registerModule(new Notify());
+        registerModule(new HudEditor());
     }
 
     public void registerModule(Module module) {
+        Emotion.CONSOLE.logInfo("Registering module \"" + module.getDisplayName() + "\" ...");
         modules.add(module);
         module.onRegister();
         Emotion.CONSOLE.logInfo("Module \"" + module.getDisplayName() + "\" is loaded.");

@@ -31,7 +31,7 @@ public class EventManager {
                  new Color(22, 115, 255, 182),
                  35,
                  35,
-                 30,
+                 360,
                  5,
                  3,
                  360);

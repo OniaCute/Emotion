@@ -1,5 +1,6 @@
 package cc.emotion.features.managers;
 
+import cc.emotion.Emotion;
 import cc.emotion.modules.client.Client;
 
 import java.util.HashMap;
@@ -11,7 +12,9 @@ public class TextManager {
 
     public TextManager() {
         loadEnglish();
+        Emotion.CONSOLE.logInfo("language \"English\" was loaded!");
         loadChinese();
+        Emotion.CONSOLE.logInfo("language \"Chinese\" was loaded!");
     }
 
     private void loadEnglish() {
@@ -27,7 +30,7 @@ public class TextManager {
         englishLanguageBase.put("Theme.Error.Notify.AuthorIsNotExist.title", "Theme Error");
         englishLanguageBase.put("Theme.Error.Notify.AuthorIsNotExist.description", "The author of the theme does not exist!");
 
-        englishLanguageBase.put("Module.Modules.Client.Name", "Client");
+        englishLanguageBase.put("Module.Modules.Client.name", "Client");
         englishLanguageBase.put("Module.Modules.Client.Options.BooleanOption.Sync.name", "SYNC");
         englishLanguageBase.put("Module.Modules.Client.Options.BooleanOption.Sync.description", "Share your Emotion user status so that you can be seen by other users who have enabled Sync and have their Emotion icons displayed.");
         englishLanguageBase.put("Module.Modules.Client.Options.EnumOption.UIScale.name", "UI Scale");
@@ -35,6 +38,13 @@ public class TextManager {
         englishLanguageBase.put("Module.Modules.Client.Options.EnumOption.Language.name", "Language");
         englishLanguageBase.put("Module.Modules.Client.Options.BooleanOption.SafeMode.name", "SafeMode");
         englishLanguageBase.put("Module.Modules.Client.Options.BooleanOption.SafeMode.description", "SafeMode is enabled by default when EmotionClient is loaded. This option will help minimize the chances of your cheating behavior being detected.");
+
+        englishLanguageBase.put("Module.Modules.Notify.name", "Notify");
+        englishLanguageBase.put("Module.Modules.Notify.description", "Setting about notifications");
+
+        englishLanguageBase.put("Module.Modules.HudEditor.name", "HUD Editor");
+        englishLanguageBase.put("Module.Modules.HudEditor.description", "Edit something about HUDs");
+
     }
 
     private void loadChinese() {
@@ -58,6 +68,12 @@ public class TextManager {
         chineseLanguageBase.put("Module.Modules.Client.Options.EnumOption.Language.name", "语言设置");
         chineseLanguageBase.put("Module.Modules.Client.Options.BooleanOption.SafeMode.name", "安全模式");
         chineseLanguageBase.put("Module.Modules.Client.Options.BooleanOption.SafeMode.description", "安全模式在EmotionClient加载时默认开启,该选项将协助你的作弊行为尽可能不被检测");
+
+        englishLanguageBase.put("Module.Modules.Notify.name", "通知");
+        englishLanguageBase.put("Module.Modules.Notify.description", "设置通知样式");
+
+        englishLanguageBase.put("Module.Modules.HudEditor.name", "HUD编辑器");
+        englishLanguageBase.put("Module.Modules.HudEditor.description", "编辑HUD内容");
     }
 
     public String get(String key) {

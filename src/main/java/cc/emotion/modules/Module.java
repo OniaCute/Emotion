@@ -20,7 +20,7 @@ public class Module implements Wrapper {
 
     public Module(String name, Category category) {
         this.name = name;
-        this.displayName = Emotion.TEXT.get("Module.Modules." + name + ".Name");
+        this.displayName = Emotion.TEXT.get("Module.Modules." + name + ".name");
         this.category = category;
     }
 

@@ -39,6 +39,7 @@ public class ModuleComponent extends GuiComponent {
     public void onDraw(DrawContext context, double mouseX, double mouseY, boolean CLICK_LEFT, boolean CLICK_RIGHT) {
         Double latestComponentX = GuiManager.latestComponentPosition.getA();
         Double latestComponentY = GuiManager.latestComponentPosition.getB();
+        this.x = latestComponentX;
         this.y = latestComponentY + 30 * Render2DUtil.getScaleFactor();
 
         if (this.module.getStatus()) {
@@ -46,8 +47,8 @@ public class ModuleComponent extends GuiComponent {
                     context,
                     this.x,
                     this.y,
-                    50,
-                    30,
+                    this.width * Render2DUtil.getScaleFactor(),
+                    30 * Render2DUtil.getScaleFactor(),
                     Emotion.THEME.getTheme().getModuleEnabledBackgroundColor()
             );
 
@@ -56,8 +57,8 @@ public class ModuleComponent extends GuiComponent {
                     this.module.getDisplayName(),
                     this.x,
                     this.y,
-                    this.x + 50,
-                    this.y + 30,
+                    this.x + this.width * Render2DUtil.getScaleFactor(),
+                    this.y + 30 * Render2DUtil.getScaleFactor(),
                     Aligns.CENTER,
                     Emotion.THEME.getTheme().getModuleEnabledTextColor(),
                     FontSize.MEDIUM
@@ -67,8 +68,8 @@ public class ModuleComponent extends GuiComponent {
                     context,
                     this.x,
                     this.y,
-                    50,
-                    30,
+                    this.width * Render2DUtil.getScaleFactor(),
+                    30 * Render2DUtil.getScaleFactor(),
                     Emotion.THEME.getTheme().getModuleBackgroundColor()
             );
 
@@ -77,8 +78,8 @@ public class ModuleComponent extends GuiComponent {
                     this.module.getDisplayName(),
                     this.x,
                     this.y,
-                    this.x + 50,
-                    this.y + 30,
+                    this.x + this.width * Render2DUtil.getScaleFactor(),
+                    this.y + 30 * Render2DUtil.getScaleFactor(),
                     Aligns.CENTER,
                     Emotion.THEME.getTheme().getModuleTextColor(),
                     FontSize.MEDIUM
@@ -86,5 +87,11 @@ public class ModuleComponent extends GuiComponent {
         }
 
         GuiManager.latestComponentPosition = new Pair<>(this.x, this.y);
+
+        if (isSpread()) {
+            for (GuiComponent component : this.getSubComponents()) {
+                component.onDraw(context, mouseX, mouseY, CLICK_LEFT, CLICK_RIGHT);
+            }
+        }
     }
 }

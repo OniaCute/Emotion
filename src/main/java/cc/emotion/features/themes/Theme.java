@@ -25,6 +25,13 @@ public class Theme {
     private Color notificationTextColor;
     private Color notificationHighlightTextColor;
     private Color notificationBackgroundColor;
+    private Color buttonBackgroundColor;
+    private Color buttonCircleColor;
+    private Color buttonInlineColor;
+    private Color buttonEnabledBackgroundColor;
+    private Color buttonEnabledCircleColor;
+    private Color buttonEnabledInlineColor;
+    private Color optionsTextColor;
 
     public Theme(String name, String displayName, String description, ArrayList<EmotionAccount> authors) {
         this.name = name;
@@ -153,5 +160,61 @@ public class Theme {
 
     public Color getNotificationHighlightTextColor() {
         return notificationHighlightTextColor;
+    }
+
+    public void setButtonCircleColor(Color buttonCircleColor) {
+        this.buttonCircleColor = buttonCircleColor;
+    }
+
+    public Color getButtonCircleColor() {
+        return buttonCircleColor;
+    }
+
+    public void setButtonEnabledCircleColor(Color buttonEnabledCircleColor) {
+        this.buttonEnabledCircleColor = buttonEnabledCircleColor;
+    }
+
+    public Color getButtonEnabledCircleColor() {
+        return buttonEnabledCircleColor;
+    }
+
+    public void setButtonEnabledInlineColor(Color buttonEnabledInlineColor) {
+        this.buttonEnabledInlineColor = buttonEnabledInlineColor;
+    }
+
+    public Color getButtonEnabledInlineColor() {
+        return buttonEnabledInlineColor;
+    }
+
+    public void setButtonInlineColor(Color buttonInlineColor) {
+        this.buttonInlineColor = buttonInlineColor;
+    }
+
+    public Color getButtonInlineColor() {
+        return buttonInlineColor;
+    }
+
+    public void setButtonBackgroundColor(Color buttonBackgroundColor) {
+        this.buttonBackgroundColor = buttonBackgroundColor;
+    }
+
+    public Color getButtonBackgroundColor() {
+        return buttonBackgroundColor;
+    }
+
+    public void setButtonEnabledBackgroundColor(Color buttonEnabledBackgroundColor) {
+        this.buttonEnabledBackgroundColor = buttonEnabledBackgroundColor;
+    }
+
+    public Color getButtonEnabledBackgroundColor() {
+        return buttonEnabledBackgroundColor;
+    }
+
+    public void setOptionsTextColor(Color optionsTextColor) {
+        this.optionsTextColor = optionsTextColor;
+    }
+
+    public Color getOptionsTextColor() {
+        return optionsTextColor;
     }
 }

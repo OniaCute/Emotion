@@ -9,28 +9,40 @@ public class DoubleOption extends Option<Double> {
     private double minValue;
     private double increase;
 
-    public DoubleOption(String name, String description, double maxValue, double minValue, double value) {
+    public DoubleOption(String name, String description, double minValue, double maxValue, double value) {
         super(name, description, value, v -> true);
+        this.minValue = minValue;
+        this.maxValue = maxValue;
     }
 
-    public DoubleOption(String name, String description, double maxValue, double minValue, double value, Predicate<?> invisibility) {
+    public DoubleOption(String name, String description, double minValue, double maxValue, double value, Predicate<?> invisibility) {
         super(name, description, value, invisibility);
+        this.minValue = minValue;
+        this.maxValue = maxValue;
     }
 
-    public DoubleOption(String name, String description, double maxValue, double minValue) {
+    public DoubleOption(String name, String description, double minValue, double maxValue) {
         super(name, description, 0.00, v -> true);
+        this.minValue = minValue;
+        this.maxValue = maxValue;
     }
 
-    public DoubleOption(String name, double maxValue, double minValue, double value) {
+    public DoubleOption(String name, double minValue, double maxValue, double value) {
         super(name, value, v -> true);
+        this.minValue = minValue;
+        this.maxValue = maxValue;
     }
 
-    public DoubleOption(String name, double maxValue, double minValue, double value, Predicate<?> invisibility) {
+    public DoubleOption(String name, double minValue, double maxValue, double value, Predicate<?> invisibility) {
         super(name, value, invisibility);
+        this.minValue = minValue;
+        this.maxValue = maxValue;
     }
 
-    public DoubleOption(String name, double maxValue, double minValue) {
+    public DoubleOption(String name, double minValue, double maxValue) {
         super(name, 0.00, v -> true);
+        this.minValue = minValue;
+        this.maxValue = maxValue;
     }
 
     public DoubleOption(String name, Double defaultValue) {

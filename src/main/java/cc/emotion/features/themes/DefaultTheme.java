@@ -23,6 +23,13 @@ public class DefaultTheme extends Theme {
         setNotificationBackgroundColor(new Color(35, 35, 35, 182));
         setNotificationTextColor(new Color(255, 255, 255));
         setNotificationHighlightTextColor(new Color(0, 140, 255));
+        setButtonCircleColor(new Color(140, 140, 140));
+        setButtonInlineColor(new Color(196, 196, 196));
+        setButtonEnabledCircleColor(new Color(0, 111, 206));
+        setButtonEnabledInlineColor(new Color(10, 145, 255));
+        setButtonBackgroundColor(new Color(103, 103, 103));
+        setButtonBackgroundColor(new Color(94, 181, 255, 255));
+        setOptionsTextColor(new Color(255, 255, 255));
 
         INSTANCE = this;
     }

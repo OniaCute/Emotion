@@ -25,10 +25,8 @@ public class Client extends Module {
     public Option<Enum<?>> language = addOption(new EnumOption("Language", UIScales.X100));
 
     @Override
-    public void onRegister() {
-        Emotion.CONSOLE.logInfo("[Module Client] init click gui ...");
-        Emotion.GUI.initClickGui();
-        Emotion.CONSOLE.logInfo("[Module Client] finished!");
+    public void onMouseMoveInClickGuiScreen(DrawContext context, double mouseX, double mouseY) {
+        Emotion.GUI.onMouseMoveInClickGuiScreen(context, mouseX, mouseY);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package cc.emotion.util.render;
 
+import cc.emotion.features.enums.Aligns;
 import cc.emotion.modules.client.Client;
 import cc.emotion.util.interfaces.Wrapper;
 import cc.emotion.util.math.MathUtil;
@@ -12,6 +13,7 @@ import net.minecraft.util.math.MathHelper;
 import org.joml.Math;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
+import oshi.util.tuples.Pair;
 
 import java.awt.*;
 import java.util.Stack;
@@ -148,6 +150,43 @@ public class Render2DUtil implements Wrapper {
         disableRender();
     }
 
+    public static void drawRectWithAlign(DrawContext context, double x1, double y1, double x2, double y2, Color color, Aligns align) {
+        float width = (float) Math.abs(x2 - x1);
+        float height = (float) Math.abs(y2 - y1);
+
+        double[] aligned = getAlignPosition(x1, y1, x2, y2, width, height, align);
+        drawRect(context, aligned[0], aligned[1], width, height, color);
+    }
+
+    public static Pair<Double, Double> drawRoundedRectWithAlign(MatrixStack matrices, double x1, double y1, double x2, double y2, double radius, Color color, Aligns align) {
+        float width = (float) Math.abs(x2 - x1);
+        float height = (float) Math.abs(y2 - y1);
+
+        double[] aligned = getAlignPosition(x1, y1, x2, y2, width, height, align);
+        drawRoundedRect(matrices, aligned[0], aligned[1], width, height, radius, color);
+        return new Pair<Double, Double>(aligned[0], aligned[1]);
+    }
+
+    public static void drawCircleWithAlign(MatrixStack matrices, Color color,
+                                           double x1, double y1, double x2, double y2, double radius, int segments, Aligns align) {
+        double[] aligned = getAlignPosition(x1, y1, x2, y2, radius * 2, radius * 2, align);
+        double cx = aligned[0] + radius;
+        double cy = aligned[1] + radius;
+        drawCircle(matrices, color, cx, cy, radius, segments);
+    }
+
+    public static void drawCircleWithInlineWithAlign(MatrixStack matrices, Color baseColor, Color inlineColor,
+                                                     double x1, double y1, double x2, double y2, double radius,
+                                                     float inlineDistance, float inlineWidth, int segments,
+                                                     Aligns align) {
+        double[] aligned = getAlignPosition(x1, y1, x2, y2, radius * 2, radius * 2, align);
+        double originX = aligned[0] + radius;
+        double originY = aligned[1] + radius;
+        drawCircleWithInline(matrices, baseColor, inlineColor,
+                originX, originY, radius,
+                inlineDistance, inlineWidth, segments);
+    }
+
 
 
     public static void renderRounded(MatrixStack matrices, Color c, double fromX, double fromY, double toX, double toY, double radius, double samples) {
@@ -270,5 +309,58 @@ public class Render2DUtil implements Wrapper {
             case X200 -> 2.0f;
             default -> 1.0f;
         };
+    }
+
+    public static double[] getAlignPosition(double x1, double y1, double x2, double y2, double width, double height, Aligns align) {
+        float scale = getScaleFactor();
+        width *= scale;
+        height *= scale;
+        x1 *= scale;
+        y1 *= scale;
+        x2 *= scale;
+        y2 *= scale;
+
+        double startX = x1, startY = y1;
+
+        switch (align) {
+            case LEFT -> {
+                startX = x1;
+                startY = (y1 + y2 - height) / 2;
+            }
+            case RIGHT -> {
+                startX = x2 - width;
+                startY = (y1 + y2 - height) / 2;
+            }
+            case CENTER -> {
+                startX = (x1 + x2 - width) / 2;
+                startY = (y1 + y2 - height) / 2;
+            }
+            case TOP -> {
+                startX = (x1 + x2 - width) / 2;
+                startY = y1;
+            }
+            case BOTTOM -> {
+                startX = (x1 + x2 - width) / 2;
+                startY = y2 - height;
+            }
+            case LEFT_TOP -> {
+                startX = x1;
+                startY = y1;
+            }
+            case LEFT_BOTTOM -> {
+                startX = x1;
+                startY = y2 - height;
+            }
+            case RIGHT_TOP -> {
+                startX = x2 - width;
+                startY = y1;
+            }
+            case RIGHT_BOTTOM -> {
+                startX = x2 - width;
+                startY = y2 - height;
+            }
+        }
+
+        return new double[]{startX, startY};
     }
 }

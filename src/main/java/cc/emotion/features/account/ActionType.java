@@ -17,7 +17,7 @@ package cc.emotion.features.account;
 
  (status) -1 : maintenance (service is not running)
           0  : normal
-          1  : busy (ddos protection mechanism)
+          1  : busy (busy for servicing)
 
  */
 

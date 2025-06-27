@@ -15,6 +15,6 @@ public class Notify extends Module {
 
     public Option<Boolean> rounded = addOption(new BooleanOption("Rounded", true));
     public Option<Double> radius = addOption(new DoubleOption("Radius", 1, 6, 3, v -> rounded.getValue()));
-    public Option<Double> notificationAliveTime = addOption(new DoubleOption("NotificationAliveTime", 100, 1000, 300));
-
+    public Option<Double> notificationAliveTime = addOption(new DoubleOption("Notification AliveTime", 100, 1000, 300));
+    public Option<Double> animationSpeed = addOption(new DoubleOption("Animation Speed", 300, 800, 400));
 }
