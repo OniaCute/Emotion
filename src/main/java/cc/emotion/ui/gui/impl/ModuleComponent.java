@@ -3,6 +3,7 @@ package cc.emotion.ui.gui.impl;
 import cc.emotion.Emotion;
 import cc.emotion.features.enums.Aligns;
 import cc.emotion.features.enums.FontSize;
+import cc.emotion.features.enums.MouseButtons;
 import cc.emotion.features.managers.GuiManager;
 import cc.emotion.modules.Module;
 import cc.emotion.ui.gui.GuiComponent;
@@ -34,6 +35,15 @@ public class ModuleComponent extends GuiComponent {
         return isSpread;
     }
 
+    @Override
+    public void onMouseClick(double mouseX, double mouseY, MouseButtons button) {
+
+    }
+
+    @Override
+    public void onMouseRelease(double mouseX, double mouseY, MouseButtons button) {
+
+    }
 
     @Override
     public void onDraw(DrawContext context, double mouseX, double mouseY, boolean CLICK_LEFT, boolean CLICK_RIGHT) {

@@ -1,5 +1,6 @@
 package cc.emotion.ui.gui;
 
+import cc.emotion.features.enums.MouseButtons;
 import net.minecraft.client.gui.DrawContext;
 
 import java.util.ArrayList;
@@ -16,11 +17,15 @@ public abstract class GuiComponent {
     protected ArrayList<GuiComponent> subComponents = new ArrayList<GuiComponent>();
     protected boolean pinned = false;
 
-    protected boolean isHovered(double mouseX, double mouseY) {
+    public boolean isHovered(double mouseX, double mouseY) {
         return x < mouseX && x + width > mouseX && y < mouseY && y + height > mouseY;
     }
 
     public abstract void onDraw(DrawContext context, double mouseX, double mouseY, boolean CLICK_LEFT, boolean CLICK_RIGHT);
+
+    public abstract void onMouseClick(double mouseX, double mouseY, MouseButtons button);
+
+    public abstract void onMouseRelease(double mouseX, double mouseY, MouseButtons button);
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
@@ -80,5 +85,9 @@ public abstract class GuiComponent {
 
     public GuiComponent getParentComponent() {
         return parentComponent;
+    }
+
+    public void resetParentComponent() {
+        this.parentComponent = null;
     }
 }

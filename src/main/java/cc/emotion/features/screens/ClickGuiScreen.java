@@ -1,6 +1,8 @@
 package cc.emotion.features.screens;
 
 import cc.emotion.Emotion;
+import cc.emotion.features.enums.MouseButtons;
+import cc.emotion.features.managers.EventManager;
 import cc.emotion.features.managers.GuiManager;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -29,19 +31,24 @@ public class ClickGuiScreen extends Screen {
         if (button == 0) {
             LEFT_CLICKED = true;
             GuiManager.CLICKED_LEFT = true;
+            Emotion.EVENTS.onMouseClick(mouseX, mouseY, MouseButtons.LEFT);
         }
         else if (button == 1) {
             RIGHT_CLICKED = true;
             GuiManager.CLICKED_RIGHT = true;
+            Emotion.EVENTS.onMouseClick(mouseX, mouseY, MouseButtons.RIGHT);
         }
         else if (button == 2) {
             CENTER_CLICKED = true;
+            Emotion.EVENTS.onMouseClick(mouseX, mouseY, MouseButtons.CENTER);
         }
         else if (button == 3) {
             FLANK_FRONT_CLICKED = true;
+            Emotion.EVENTS.onMouseClick(mouseX, mouseY, MouseButtons.FLANK_FRONT);
         }
         else if (button == 4) {
             FLANK_BACK_CLICKED = true;
+            Emotion.EVENTS.onMouseClick(mouseX, mouseY, MouseButtons.FLANK_BACK);
         }
         return super.mouseClicked(mouseX, mouseY, button);
     }
@@ -51,19 +58,24 @@ public class ClickGuiScreen extends Screen {
         if (button == 0) {
             LEFT_CLICKED = false;
             GuiManager.CLICKED_LEFT = false;
+            Emotion.EVENTS.onMouseRelease(mouseX, mouseY, MouseButtons.LEFT);
         }
         else if (button == 1) {
             RIGHT_CLICKED = false;
             GuiManager.CLICKED_RIGHT = false;
+            Emotion.EVENTS.onMouseRelease(mouseX, mouseY, MouseButtons.RIGHT);
         }
         else if (button == 2) {
             CENTER_CLICKED = false;
+            Emotion.EVENTS.onMouseRelease(mouseX, mouseY, MouseButtons.CENTER);
         }
         else if (button == 3) {
             FLANK_FRONT_CLICKED = false;
+            Emotion.EVENTS.onMouseRelease(mouseX, mouseY, MouseButtons.FLANK_FRONT);
         }
         else if (button == 4) {
             FLANK_BACK_CLICKED = false;
+            Emotion.EVENTS.onMouseRelease(mouseX, mouseY, MouseButtons.FLANK_BACK);
         }
         if (!LEFT_CLICKED && !RIGHT_CLICKED && !CENTER_CLICKED && !FLANK_FRONT_CLICKED && !FLANK_BACK_CLICKED) {
             MOUSE_CLICKED = false;
@@ -73,13 +85,13 @@ public class ClickGuiScreen extends Screen {
 
     @Override
     public void close() {
-        super.close();
         LEFT_CLICKED = false;
         RIGHT_CLICKED = false;
         CENTER_CLICKED = false;
         FLANK_FRONT_CLICKED = false;
         FLANK_BACK_CLICKED = false;
         MOUSE_CLICKED = false;
+        super.close();
     }
 
     @Override

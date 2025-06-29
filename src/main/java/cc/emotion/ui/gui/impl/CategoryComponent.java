@@ -1,6 +1,7 @@
 package cc.emotion.ui.gui.impl;
 
 import cc.emotion.Emotion;
+import cc.emotion.features.enums.MouseButtons;
 import cc.emotion.features.managers.GuiManager;
 import cc.emotion.modules.Module;
 import cc.emotion.ui.gui.GuiComponent;
@@ -14,6 +15,16 @@ public class CategoryComponent extends GuiComponent {
 
     public CategoryComponent(Module.Category category) {
         this.category = category;
+    }
+
+    @Override
+    public void onMouseClick(double mouseX, double mouseY, MouseButtons button) {
+
+    }
+
+    @Override
+    public void onMouseRelease(double mouseX, double mouseY, MouseButtons button) {
+
     }
 
     @Override

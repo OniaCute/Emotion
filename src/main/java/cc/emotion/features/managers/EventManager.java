@@ -3,6 +3,7 @@ package cc.emotion.features.managers;
 import cc.emotion.Emotion;
 import cc.emotion.features.enums.Aligns;
 import cc.emotion.features.enums.FontSize;
+import cc.emotion.features.enums.MouseButtons;
 import cc.emotion.features.notifications.Notification;
 import cc.emotion.modules.Module;
 import cc.emotion.modules.client.Client;
@@ -63,4 +64,12 @@ public class EventManager {
              }
          }
      }
+
+    public void onMouseClick(double mouseX, double mouseY, MouseButtons button) {
+        Emotion.GUI.onMouseClick(mouseX, mouseY, button);
+    }
+
+    public void onMouseRelease(double mouseX, double mouseY, MouseButtons button) {
+        Emotion.GUI.onMouseRelease(mouseX, mouseY, button);
+    }
 }

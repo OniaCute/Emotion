@@ -21,7 +21,7 @@ public class Emotion implements ModInitializer {
     public static final ArrayList<String> AUTHORS = new ArrayList<String>();
     public static String PREFIX = "$";
     public static String HWID = "";
-    public static String AUTHID = "00000x00000d00000";
+    public static String AUTHID = "0X0000FF";
     public static boolean AUTHED = false;
     public static boolean LOADED = false;
     public static long LOAD_TIME;
@@ -45,7 +45,7 @@ public class Emotion implements ModInitializer {
     @Override
     public void onInitialize() {
         CONSOLE = new Console();
-        CONSOLE.logInfo("Emotion | Preloaded", true);
+        CONSOLE.logInfo("Emotion Client | Preloading ...", true);
         CONSOLE.logInfo("VERSION: " + VERSION, true);
         CONSOLE.logInfo("Authors: Voury, Onia", true);
 
@@ -55,7 +55,7 @@ public class Emotion implements ModInitializer {
             mc.stop();
         } else {
 //            if (!AuthSystem.doAuth()) {
-//                CONSOLE.logAuth("Auth failed, please check your network status and computer status.");
+//                CONSOLE.logAuth("Auth failed, please check your Network status and computer status.");
 //                CONSOLE.logAuth("Emotion will not provide services until you have successfully auth.");
 //                mc.stop();
 //            }
@@ -71,6 +71,7 @@ public class Emotion implements ModInitializer {
         CONSOLE.logInfo("Registering Event bus ...");
         EVENTBUS.registerLambdaFactory("cc.emotion", (lookupInMethod, klass) -> (MethodHandles.Lookup) lookupInMethod.invoke(null, klass, MethodHandles.lookup()));
         CONSOLE.logInfo("Lambda was loaded.");
+        CONSOLE.logInfo("Emotion Client was preloaded.");
         // Information define & Intellectual property declaration
         AUTHORS.add("Voury");
         AUTHORS.add("Onia");
@@ -82,10 +83,10 @@ public class Emotion implements ModInitializer {
         CONSOLE.logInfo("Text Manager was loaded");
         THEME = new ThemeManager();
         CONSOLE.logInfo("Theme Manager was loaded");
-        MODULE = new ModuleManager();
-        CONSOLE.logInfo("Module Manager was loaded");
         GUI = new GuiManager();
         CONSOLE.logInfo("GUI Manager was loaded");
+        MODULE = new ModuleManager();
+        CONSOLE.logInfo("Module Manager was loaded");
         NOTIFY = new NotifyManager();
         CONSOLE.logInfo("Notify Manager was loaded");
         EVENTS = new EventManager();

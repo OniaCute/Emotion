@@ -5,11 +5,11 @@ import java.util.Stack;
 public class AlphaOverride {
     private static final Stack<Float> alphaMultipliers = new Stack<>();
 
-    public static void pushAlphaMul(float val) {
+    public static void pushAlphaMultipliers(float val) {
         alphaMultipliers.push(val);
     }
 
-    public static void popAlphaMul() {
+    public static void popAlphaMultipliers() {
         alphaMultipliers.pop();
     }
 

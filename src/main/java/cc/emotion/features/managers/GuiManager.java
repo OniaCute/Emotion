@@ -1,12 +1,15 @@
 package cc.emotion.features.managers;
 
+import cc.emotion.Emotion;
 import cc.emotion.features.enums.FontSize;
+import cc.emotion.features.enums.MouseButtons;
 import cc.emotion.features.options.Option;
 import cc.emotion.features.screens.ClickGuiScreen;
 import cc.emotion.modules.Module;
 import cc.emotion.ui.gui.GuiComponent;
 import cc.emotion.ui.gui.impl.CategoryComponent;
 import cc.emotion.ui.gui.impl.ModuleComponent;
+import cc.emotion.ui.hud.HudComponent;
 import cc.emotion.util.font.FontUtil;
 import cc.emotion.util.interfaces.Wrapper;
 import cc.emotion.util.render.Render2DUtil;
@@ -23,6 +26,7 @@ public class GuiManager implements Wrapper {
     public static ClickGuiScreen CLICK_GUI_SCREEN;
     public static boolean CLICKED_LEFT;
     public static boolean CLICKED_RIGHT;
+    public static boolean isComponentsLoaded = false;
 
     public GuiManager() {
         CLICK_GUI_SCREEN = new ClickGuiScreen();
@@ -46,6 +50,28 @@ public class GuiManager implements Wrapper {
         }
     }
 
+    public void onMouseClick(double mouseX, double mouseY, MouseButtons button) {
+        if (!isComponentsLoaded) {
+            return ;
+        }
+        for (GuiComponent rootComponent : rootComponents) {
+            if (rootComponent.isHovered(mouseX, mouseY)) {
+                rootComponent.onMouseClick(mouseX, mouseY, button);
+            }
+        }
+    }
+
+    public void onMouseRelease(double mouseX, double mouseY, MouseButtons button) {
+        if (!isComponentsLoaded) {
+            return ;
+        }
+        for (GuiComponent rootComponent : rootComponents) {
+            if (rootComponent.isHovered(mouseX, mouseY)) {
+                rootComponent.onMouseRelease(mouseX, mouseY, button);
+            }
+        }
+    }
+
     public void initClickGui() {
         HashMap<Module.Category, Module> categoryModuleHashMap = new HashMap<>();
         for (Module module : ModuleManager.modules) {
@@ -53,16 +79,19 @@ public class GuiManager implements Wrapper {
         }
 
         for (Module.Category category : categoryModuleHashMap.keySet()) {
+//            Emotion.CONSOLE.logInfo("[DEBUG] new category component: \"" + category.name() + "\"");
             CategoryComponent categoryComponent = new CategoryComponent(category);
             for (Module module : ModuleManager.modules) {
                 if (category == module.getCategory()) {
+                    Emotion.CONSOLE.logInfo("[DEBUG] new module component: \"" + module.getName() + "\", belong to: \"" + module.getCategory().name() + "\" ");
                     ModuleComponent moduleComponent = new ModuleComponent(module);
                     if (FontUtil.getWidth(FontSize.MEDIUM, moduleComponent.getModule().getDisplayName()) >= categoryComponent.getWidth()) {
                         categoryComponent.setWidth(FontUtil.getWidth(FontSize.MEDIUM, moduleComponent.getModule().getDisplayName()) + (4 * Render2DUtil.getScaleFactor()));
                     }
-//                    for (Option<?> option : module.getOptionsList()) {
-//                        // OptionComponents, pass
-//                    }
+                    for (Option<?> option : module.getOptionsList()) {
+                        Emotion.CONSOLE.logInfo("[DEBUG] new option component: \"" + option.getName() + "\", belong to: \"" + module.getName() + "\" ");
+                        // OptionComponents, pass
+                    }
 
                     moduleComponent.setParentComponent(categoryComponent);
                     categoryComponent.addSub(moduleComponent);

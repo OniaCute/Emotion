@@ -41,6 +41,14 @@ public abstract class Option<T> {
         return invisibility;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }

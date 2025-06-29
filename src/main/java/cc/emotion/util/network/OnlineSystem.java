@@ -1,4 +1,4 @@
 package cc.emotion.util.network;
 
-public class online {
+public class OnlineSystem {
 }

@@ -11,6 +11,9 @@ public class NotifyManager {
     public static Pair<Double, Double> nextNotificationPos = null;
     public static ArrayList<Notification> notifications = new ArrayList<>();
 
+    public NotifyManager() {
+    }
+
     public static void addNotification(NormalNotification notification) {
         notifications.add(notification);
     }

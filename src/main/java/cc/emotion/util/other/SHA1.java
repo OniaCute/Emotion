@@ -1,20 +1,21 @@
 package cc.emotion.util.other;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
 public class SHA1 {
-    public static String shaEncode(String inStr) throws Exception {
-        MessageDigest sha = null;
+    public static String asSHA(String string) {
+        MessageDigest SHA = null;
         try {
-            sha = MessageDigest.getInstance("SHA");
+            SHA = MessageDigest.getInstance("SHA-1");
         } catch (Exception e) {
             System.out.println(e.toString());
             e.printStackTrace();
             return "";
         }
 
-        byte[] byteArray = inStr.getBytes("UTF-8");
-        byte[] md5Bytes = sha.digest(byteArray);
+        byte[] byteArray = string.getBytes(StandardCharsets.UTF_8);
+        byte[] md5Bytes = SHA.digest(byteArray);
         StringBuffer hexValue = new StringBuffer();
         for (int i = 0; i < md5Bytes.length; i++) {
             int val = ((int) md5Bytes[i]) & 0xff;

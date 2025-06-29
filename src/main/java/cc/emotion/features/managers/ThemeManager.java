@@ -21,7 +21,9 @@ public class ThemeManager {
     }
 
     public void unloadTheme() {
+        Emotion.CONSOLE.logInfo("unloading theme ...");
         currentTheme = new DefaultTheme();
+        Emotion.CONSOLE.logInfo("Theme unloaded, now the theme is default theme.");
     }
 
     public Theme getTheme() {

@@ -8,7 +8,7 @@ import cc.emotion.util.data.JsonUtil;
 import java.util.Date;
 import java.util.HashMap;
 
-public class network {
+public class Network {
     public static EmotionLocalAccount login(String accountName, String password, String HWID) {
         HashMap<?, ?> result = JsonUtil.stringToHashMap(Emotion.URL.getResponse(URLManager.serverAccountAddress + "?action=" + ActionType.PasswordLogin.name() + "&u=" + accountName + "&p=" + password + "&h=" + HWID));
         if (result.get("status") == "0") {
@@ -44,6 +44,7 @@ public class network {
                         (String) result.get("account_username"),
                         (AccountStatus) result.get("account_status"),
                         (SubscriptionTypes) result.get("account_sub"),
+
                         (Date) result.get("account_expire"),
                         (String) result.get("account_token")
                 );

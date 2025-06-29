@@ -50,6 +50,18 @@ public class Module implements Wrapper {
     public void onDraw3D() {
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public String getDisplayName() {
         return displayName;
     }
