@@ -47,6 +47,9 @@ public class Module implements Wrapper {
     public void onMouseMoveInClickGuiScreen(DrawContext context,  double mouseX, double mouseY) {
     }
 
+    public void onMouseMoveInHudEditorScreen(DrawContext context,  double mouseX, double mouseY) {
+    }
+
     public void onDraw3D() {
     }
 

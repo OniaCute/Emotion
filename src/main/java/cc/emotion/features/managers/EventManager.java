@@ -10,6 +10,7 @@ import cc.emotion.modules.client.Client;
 import cc.emotion.util.font.FontUtil;
 import cc.emotion.util.render.Render2DUtil;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.Screen;
 
 import java.awt.*;
 
@@ -65,11 +66,19 @@ public class EventManager {
          }
      }
 
-    public void onMouseClick(double mouseX, double mouseY, MouseButtons button) {
-        Emotion.GUI.onMouseClick(mouseX, mouseY, button);
+    public void onMouseMoveInHudEditorScreen(DrawContext context, int mouseX, int mouseY) {
+        for (Module module : ModuleManager.modules) {
+            if (module.getStatus()) {
+                module.onMouseMoveInHudEditorScreen(context, mouseX, mouseY);
+            }
+        }
     }
 
-    public void onMouseRelease(double mouseX, double mouseY, MouseButtons button) {
-        Emotion.GUI.onMouseRelease(mouseX, mouseY, button);
+    public void onMouseClick(double mouseX, double mouseY, Screen screen, MouseButtons button) {
+        Emotion.GUI.onMouseClick(mouseX, mouseY, screen, button);
+    }
+
+    public void onMouseRelease(double mouseX, double mouseY, Screen screen, MouseButtons button) {
+        Emotion.GUI.onMouseRelease(mouseX, mouseY, screen, button);
     }
 }

@@ -30,6 +30,9 @@ public class DefaultTheme extends Theme {
         setButtonBackgroundColor(new Color(103, 103, 103));
         setButtonBackgroundColor(new Color(94, 181, 255, 255));
         setOptionsTextColor(new Color(255, 255, 255));
+        setHudEditorTipsTextColor(new Color(255, 255 ,255));
+        setHoverComponentBackgroundColor(new Color(56, 56, 56, 98));
+        setHoverComponentTextColor(new Color(255, 255, 255));
 
         INSTANCE = this;
     }

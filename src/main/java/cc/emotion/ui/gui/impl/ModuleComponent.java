@@ -46,7 +46,7 @@ public class ModuleComponent extends GuiComponent {
     }
 
     @Override
-    public void onDraw(DrawContext context, double mouseX, double mouseY, boolean CLICK_LEFT, boolean CLICK_RIGHT) {
+    public void onDraw(DrawContext context, double mouseX, double mouseY) {
         Double latestComponentX = GuiManager.latestComponentPosition.getA();
         Double latestComponentY = GuiManager.latestComponentPosition.getB();
         this.x = latestComponentX;
@@ -100,7 +100,7 @@ public class ModuleComponent extends GuiComponent {
 
         if (isSpread()) {
             for (GuiComponent component : this.getSubComponents()) {
-                component.onDraw(context, mouseX, mouseY, CLICK_LEFT, CLICK_RIGHT);
+                component.onDraw(context, mouseX, mouseY);
             }
         }
     }

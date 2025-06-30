@@ -1,4 +1,4 @@
-package cc.emotion.util.math;
+package cc.emotion.util.maths;
 
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;

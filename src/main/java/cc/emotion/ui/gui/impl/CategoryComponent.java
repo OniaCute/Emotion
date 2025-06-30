@@ -28,7 +28,7 @@ public class CategoryComponent extends GuiComponent {
     }
 
     @Override
-    public void onDraw(DrawContext context, double mouseX, double mouseY, boolean CLICK_LEFT, boolean CLICK_RIGHT) {
+    public void onDraw(DrawContext context, double mouseX, double mouseY) {
         Double latestComponentX = GuiManager.latestComponentPosition.getA();
         Double latestComponentY = GuiManager.latestComponentPosition.getB();
         this.x = latestComponentX + 5 * Render2DUtil.getScaleFactor();
@@ -47,7 +47,7 @@ public class CategoryComponent extends GuiComponent {
         GuiManager.latestComponentPosition = new Pair<>(this.x, this.y);
 
         for (GuiComponent component : this.subComponents) {
-            component.onDraw(context, mouseX, mouseY, CLICK_LEFT, CLICK_RIGHT);
+            component.onDraw(context, mouseX, mouseY);
         }
     }
 }

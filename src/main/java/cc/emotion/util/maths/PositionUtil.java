@@ -1,4 +1,4 @@
-package cc.emotion.util.math;
+package cc.emotion.util.maths;
 
 import oshi.util.tuples.Pair;
 

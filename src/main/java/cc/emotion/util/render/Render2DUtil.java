@@ -3,7 +3,7 @@ package cc.emotion.util.render;
 import cc.emotion.features.enums.Aligns;
 import cc.emotion.modules.client.Client;
 import cc.emotion.util.interfaces.Wrapper;
-import cc.emotion.util.math.MathUtil;
+import cc.emotion.util.maths.MathUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.gui.DrawContext;

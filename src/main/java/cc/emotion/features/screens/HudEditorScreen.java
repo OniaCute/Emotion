@@ -2,17 +2,17 @@ package cc.emotion.features.screens;
 
 import cc.emotion.Emotion;
 import cc.emotion.features.enums.MouseButtons;
-import cc.emotion.features.managers.EventManager;
 import cc.emotion.features.managers.GuiManager;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 
-public class ClickGuiScreen extends Screen {
-    public ClickGuiScreen() {
-        super(Text.of("Emotion-Client-Click-Gui-Screen"));
-        GuiManager.CLICK_GUI_SCREEN = this;
+public class HudEditorScreen extends Screen {
+    public HudEditorScreen()  {
+        super(Text.of("Emotion-Client-HUD-Editor-Screen"));
+        GuiManager.HUD_EDITOR_SCREEN = this;
     }
+
 
     public boolean LEFT_CLICKED = false; // Mouse 1 (0)
     public boolean RIGHT_CLICKED = false; // Mouse 2 (1)
@@ -93,6 +93,6 @@ public class ClickGuiScreen extends Screen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float partialTicks) {
-        Emotion.EVENTS.onMouseMoveInClickGuiScreen(context, mouseX, mouseY);
+        Emotion.EVENTS.onMouseMoveInHudEditorScreen(context, mouseX, mouseY);
     }
 }

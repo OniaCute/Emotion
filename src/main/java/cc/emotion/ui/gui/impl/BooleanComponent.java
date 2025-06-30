@@ -39,7 +39,7 @@ public class BooleanComponent extends GuiComponent {
     }
 
     @Override
-    public void onDraw(DrawContext context, double mouseX, double mouseY, boolean CLICK_LEFT, boolean CLICK_RIGHT) {
+    public void onDraw(DrawContext context, double mouseX, double mouseY) {
         this.x = GuiManager.latestComponentPosition.getA();
         this.y = GuiManager.latestComponentPosition.getB();
 

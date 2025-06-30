@@ -32,6 +32,9 @@ public class Theme {
     private Color buttonEnabledCircleColor;
     private Color buttonEnabledInlineColor;
     private Color optionsTextColor;
+    private Color hudEditorTipsTextColor;
+    private Color hoverComponentBackgroundColor;
+    private Color hoverComponentTextColor;
 
     public Theme(String name, String displayName, String description, ArrayList<EmotionAccount> authors) {
         this.name = name;
@@ -216,5 +219,29 @@ public class Theme {
 
     public Color getOptionsTextColor() {
         return optionsTextColor;
+    }
+
+    public void setHudEditorTipsTextColor(Color hudEditorTipsTextColor) {
+        this.hudEditorTipsTextColor = hudEditorTipsTextColor;
+    }
+
+    public Color getHudEditorTipsTextColor() {
+        return hudEditorTipsTextColor;
+    }
+
+    public void setHoverComponentBackgroundColor(Color hoverComponentBackgroundColor) {
+        this.hoverComponentBackgroundColor = hoverComponentBackgroundColor;
+    }
+
+    public Color getHoverComponentBackgroundColor() {
+        return hoverComponentBackgroundColor;
+    }
+
+    public void setHoverComponentTextColor(Color hoverComponentTextColor) {
+        this.hoverComponentTextColor = hoverComponentTextColor;
+    }
+
+    public Color getHoverComponentTextColor() {
+        return hoverComponentTextColor;
     }
 }

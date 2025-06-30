@@ -21,7 +21,7 @@ public abstract class GuiComponent {
         return x < mouseX && x + width > mouseX && y < mouseY && y + height > mouseY;
     }
 
-    public abstract void onDraw(DrawContext context, double mouseX, double mouseY, boolean CLICK_LEFT, boolean CLICK_RIGHT);
+    public abstract void onDraw(DrawContext context, double mouseX, double mouseY);
 
     public abstract void onMouseClick(double mouseX, double mouseY, MouseButtons button);
 
