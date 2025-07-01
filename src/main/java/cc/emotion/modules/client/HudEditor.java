@@ -15,4 +15,9 @@ public class HudEditor extends Module {
     public void onMouseMoveInHudEditorScreen(DrawContext context, double mouseX, double mouseY) {
         Emotion.GUI.onMouseMoveInHudEditorScreen(context, mouseX, mouseY);
     }
+
+    @Override
+    public void onDraw2D(DrawContext context, float tickDelta) {
+        super.onDraw2D(context, tickDelta);
+    }
 }

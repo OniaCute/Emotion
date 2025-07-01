@@ -364,8 +364,4 @@ public class Render2DUtil implements Wrapper {
 
         return new double[]{startX, startY};
     }
-
-    public static void drawGaussianBlurRect(DrawContext context, float x, float y, float width, float height, float alpha, int samples) {
-
-    }
 }

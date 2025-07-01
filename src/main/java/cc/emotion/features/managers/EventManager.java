@@ -26,7 +26,6 @@ public class EventManager {
     }
 
      public void onDraw2D(DrawContext context, float tickDelta) {
-        Render2DUtil.drawGaussianBlurRect(context, 5, 5, 40, 40, 0.5f, 8);
          FontUtil.drawText(context, "你好, 世界!", 5, 5, new Color(255,255,255), FontSize.LARGEST, false);
          for (Module module : ModuleManager.modules) {
              if (module.getStatus()) {

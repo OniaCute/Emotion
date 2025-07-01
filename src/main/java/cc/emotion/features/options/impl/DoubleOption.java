@@ -2,12 +2,15 @@ package cc.emotion.features.options.impl;
 
 import cc.emotion.features.options.Option;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.function.Predicate;
 
 public class DoubleOption extends Option<Double> {
     private double maxValue;
     private double minValue;
     private double increase;
+    private HashMap<Integer, String> specialValueMap = new HashMap<>();
 
     public DoubleOption(String name, String description, double minValue, double maxValue, double value) {
         super(name, description, value, v -> true);
@@ -84,6 +87,14 @@ public class DoubleOption extends Option<Double> {
     }
 
     public String getValueAsText() {
-        return String.valueOf(getValue()) + " tick";
+        if (specialValueMap.get(this.getValue().intValue()) == null) {
+            return String.valueOf(getValue()) + " tick";
+        }
+        return specialValueMap.get(this.getValue().intValue());
+    }
+
+    public DoubleOption addSpecialValue(Integer number, String displayString) {
+        specialValueMap.put(number, displayString);
+        return this;
     }
 }

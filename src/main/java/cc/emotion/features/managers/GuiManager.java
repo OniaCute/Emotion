@@ -106,7 +106,7 @@ public class GuiManager implements Wrapper {
             CategoryComponent categoryComponent = new CategoryComponent(category);
             categoryComponent.setX(latestComponentPosition.getA() + 5 * Render2DUtil.getScaleFactor());
             categoryComponent.setY(latestComponentPosition.getB());
-            categoryComponent.setWidth(0);
+            categoryComponent.setWidth(-1); // 不合法value
             categoryComponent.setHeight(FontUtil.getHeight(FontSize.LARGEST));
             latestComponentPosition = new Pair<>(categoryComponent.getX() + categoryComponent.getWidth(), categoryComponent.getY());
 
@@ -141,6 +141,8 @@ public class GuiManager implements Wrapper {
         for (GuiComponent component : rootComponents) {
             component.onDraw(context, mouseX, mouseY);
         }
+
+        latestComponentPosition = new Pair<>(0.0, 0.0);
     }
 
     private void drawHudEditor(DrawContext context, double mouseX, double mouseY) {
