@@ -1,6 +1,8 @@
 package cc.emotion.ui.gui.impl;
 
 import cc.emotion.Emotion;
+import cc.emotion.features.enums.Aligns;
+import cc.emotion.features.enums.FontSize;
 import cc.emotion.features.enums.MouseButtons;
 import cc.emotion.features.managers.GuiManager;
 import cc.emotion.modules.Module;
@@ -15,6 +17,7 @@ public class CategoryComponent extends GuiComponent {
 
     public CategoryComponent(Module.Category category) {
         this.category = category;
+        this.setDisplayName(Emotion.TEXT.get("Module.Category." + category.name() + ".name"));
     }
 
     @Override
@@ -29,22 +32,27 @@ public class CategoryComponent extends GuiComponent {
 
     @Override
     public void onDraw(DrawContext context, double mouseX, double mouseY) {
-        Double latestComponentX = GuiManager.latestComponentPosition.getA();
-        Double latestComponentY = GuiManager.latestComponentPosition.getB();
-        this.x = latestComponentX + 5 * Render2DUtil.getScaleFactor();
-        this.y = latestComponentY + 30 * Render2DUtil.getScaleFactor();
-
         Render2DUtil.drawRoundedRect(
                 context.getMatrices(),
-                this.x - 2 * Render2DUtil.getScaleFactor(),
-                this.y,
-                this.width + 4 * Render2DUtil.getScaleFactor(),
+                this.getX(),
+                this.getY(),
+                this.getWidth(),
                 this.getHeight(),
                 3 * Render2DUtil.getScaleFactor(),
                 Emotion.THEME.getTheme().getCategoryBackgroundColor()
         );
 
-        GuiManager.latestComponentPosition = new Pair<>(this.x, this.y);
+        FontUtil.drawTextWithAlign(
+                context,
+                this.getDisplayName(),
+                this.getX(),
+                this.getY(),
+                this.getX() + this.getWidth(),
+                this.getY() + this.getHeight(),
+                Aligns.CENTER,
+                Emotion.THEME.getTheme().getCategoryTextColor(),
+                FontSize.LARGEST
+        );
 
         for (GuiComponent component : this.subComponents) {
             component.onDraw(context, mouseX, mouseY);

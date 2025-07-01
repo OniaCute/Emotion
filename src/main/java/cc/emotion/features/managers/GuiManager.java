@@ -8,6 +8,7 @@ import cc.emotion.features.options.Option;
 import cc.emotion.features.screens.ClickGuiScreen;
 import cc.emotion.features.screens.HudEditorScreen;
 import cc.emotion.modules.Module;
+import cc.emotion.modules.client.Client;
 import cc.emotion.ui.gui.GuiComponent;
 import cc.emotion.ui.gui.impl.CategoryComponent;
 import cc.emotion.ui.gui.impl.ModuleComponent;
@@ -25,8 +26,8 @@ public class GuiManager implements Wrapper {
     private static GuiComponent currentComponent = null;
     public static ArrayList<GuiComponent> rootComponents = new ArrayList<>();
     public static Pair<Double, Double> latestComponentPosition = new Pair<>(0.00, 0.00);
-    public static ClickGuiScreen CLICK_GUI_SCREEN;
-    public static HudEditorScreen HUD_EDITOR_SCREEN;
+    public static ClickGuiScreen CLICK_GUI_SCREEN = new ClickGuiScreen();;
+    public static HudEditorScreen HUD_EDITOR_SCREEN = new HudEditorScreen();
     public static boolean isComponentsLoaded = false;
 
     public GuiManager() {
@@ -89,14 +90,26 @@ public class GuiManager implements Wrapper {
     }
 
     public void initClickGui() {
+        if (Client.INSTANCE.getStatus()) {
+            mc.setScreen(CLICK_GUI_SCREEN);
+        } else {
+            mc.setScreen(null);
+        }
+
         HashMap<Module.Category, Module> categoryModuleHashMap = new HashMap<>();
         for (Module module : ModuleManager.modules) {
             categoryModuleHashMap.put(module.getCategory(), module);
         }
 
-        for (Module.Category category : categoryModuleHashMap.keySet()) {
-//            Emotion.CONSOLE.logInfo("[DEBUG] new category component: \"" + category.name() + "\"");
+        for (Module.Category category : Module.getCategories()) {
+            Emotion.CONSOLE.logInfo("[DEBUG] new category component: \"" + category.name() + "\"");
             CategoryComponent categoryComponent = new CategoryComponent(category);
+            categoryComponent.setX(latestComponentPosition.getA() + 5 * Render2DUtil.getScaleFactor());
+            categoryComponent.setY(latestComponentPosition.getB());
+            categoryComponent.setWidth(0);
+            categoryComponent.setHeight(FontUtil.getHeight(FontSize.LARGEST));
+            latestComponentPosition = new Pair<>(categoryComponent.getX() + categoryComponent.getWidth(), categoryComponent.getY());
+
             for (Module module : ModuleManager.modules) {
                 if (category == module.getCategory()) {
                     Emotion.CONSOLE.logInfo("[DEBUG] new module component: \"" + module.getName() + "\", belong to: \"" + module.getCategory().name() + "\" ");
@@ -104,6 +117,13 @@ public class GuiManager implements Wrapper {
                     if (FontUtil.getWidth(FontSize.MEDIUM, moduleComponent.getModule().getDisplayName()) >= categoryComponent.getWidth()) {
                         categoryComponent.setWidth(FontUtil.getWidth(FontSize.MEDIUM, moduleComponent.getModule().getDisplayName()) + (4 * Render2DUtil.getScaleFactor()));
                     }
+                    moduleComponent.setX(categoryComponent.getX() + 2 * Render2DUtil.getScaleFactor());
+                    moduleComponent.setY(latestComponentPosition.getB());
+                    moduleComponent.setWidth(categoryComponent.getWidth() - 4 * Render2DUtil.getScaleFactor());
+                    moduleComponent.setHeight(FontUtil.getHeight(FontSize.MEDIUM));
+                    latestComponentPosition = new Pair<>(moduleComponent.getX() + moduleComponent.getWidth(), moduleComponent.getY() + moduleComponent.getHeight());
+
+
                     for (Option<?> option : module.getOptionsList()) {
                         Emotion.CONSOLE.logInfo("[DEBUG] new option component: \"" + option.getName() + "\", belong to: \"" + module.getName() + "\" ");
                         // OptionComponents, pass

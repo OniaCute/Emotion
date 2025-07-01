@@ -13,6 +13,7 @@ import net.minecraft.util.math.MathHelper;
 import org.joml.Math;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
+import org.lwjgl.opengl.GL11;
 import oshi.util.tuples.Pair;
 
 import java.awt.*;
@@ -362,5 +363,9 @@ public class Render2DUtil implements Wrapper {
         }
 
         return new double[]{startX, startY};
+    }
+
+    public static void drawGaussianBlurRect(DrawContext context, float x, float y, float width, float height, float alpha, int samples) {
+
     }
 }

@@ -1,6 +1,5 @@
 package cc.emotion.util.font;
 
-
 import cc.emotion.util.interfaces.Wrapper;
 import it.unimi.dsi.fastutil.chars.Char2ObjectArrayMap;
 import net.minecraft.client.MinecraftClient;
@@ -74,7 +73,7 @@ public class GlyphMap implements Wrapper {
         int charsVert = (int) (Math.ceil(Math.sqrt(range)) * 1.5);
         glyphs.clear();
         int generatedChars = 0;
-        int charX = 0;
+        int charNX = 0;
         int maxX = 0, maxY = 0;
         int currentX = 0, currentY = 0;
         int currentRowMaxY = 0;
@@ -91,16 +90,16 @@ public class GlyphMap implements Wrapper {
             generatedChars++;
             maxX = Math.max(maxX, currentX + width);
             maxY = Math.max(maxY, currentY + height);
-            if (charX >= charsVert) {
+            if (charNX >= charsVert) {
                 currentX = 0;
                 currentY += currentRowMaxY + PADDING;
-                charX = 0;
+                charNX = 0;
                 currentRowMaxY = 0;
             }
             currentRowMaxY = Math.max(currentRowMaxY, height);
             glyphs1.add(new Glyph(currentX, currentY, width, height, currentChar, this));
             currentX += width + PADDING;
-            charX++;
+            charNX++;
         }
         BufferedImage bi = new BufferedImage(Math.max(maxX + PADDING, 1), Math.max(maxY + PADDING, 1),
                 BufferedImage.TYPE_INT_ARGB);
@@ -123,22 +122,6 @@ public class GlyphMap implements Wrapper {
         }
         registerBufferedImageTexture(bindToTexture, bi);
         generated = true;
-    }
-
-    public static <Texture> void registerBufferedImageTexture(Identifier identifier, BufferedImage bi) {
-        try {
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            ImageIO.write(bi, "png", out);
-            byte[] bytes = out.toByteArray();
-
-            ByteBuffer data = ByteBuffer.allocate(bytes.length);
-            data.put(bytes);
-            data.flip();
-            NativeImageBackedTexture tex = new NativeImageBackedTexture(NativeImage.read(data));
-            mc.execute(() -> MinecraftClient.getInstance().getTextureManager().registerTexture(identifier, tex));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public static <Texture> void registerBufferedImageTexture(Texture i, BufferedImage bi) {

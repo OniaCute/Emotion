@@ -18,6 +18,14 @@ public class HoverTextComponent extends GuiComponent {
         this.y = y;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getText() {
+        return text;
+    }
+
     @Override
     public void onDraw(DrawContext context, double mouseX, double mouseY) {
         Render2DUtil.drawRoundedRect(

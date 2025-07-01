@@ -9,8 +9,7 @@ import net.minecraft.text.Text;
 
 public class HudEditorScreen extends Screen {
     public HudEditorScreen()  {
-        super(Text.of("Emotion-Client-HUD-Editor-Screen"));
-        GuiManager.HUD_EDITOR_SCREEN = this;
+        super(Text.of("EmotionClientHUDEditorScreen"));
     }
 
 

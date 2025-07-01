@@ -27,9 +27,6 @@ public class FontRenderers {
     public static FontAdapter SMOOTH_21F;
     public static FontAdapter SMOOTH_24F;
     public static FontAdapter SMOOTH_28F;
-    public static @NotNull RendererFontAdapter createDefault(float size, String name) throws IOException, FontFormatException {
-        return new RendererFontAdapter(Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontRenderers.class.getClassLoader().getResourceAsStream("assets/minecraft/font/" + name + ".ttf"))).deriveFont(Font.PLAIN, size), size);
-    }
 
     public static RendererFontAdapter create(String name, int style, float size) {
         return new RendererFontAdapter(new Font(name, style, (int) size), size);

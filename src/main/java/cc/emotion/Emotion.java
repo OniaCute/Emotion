@@ -32,10 +32,10 @@ public class Emotion implements ModInitializer {
     public static URLManager URL;
     public static TextManager TEXT;
     public static ThemeManager THEME;
+    public static EventManager EVENTS;
     public static GuiManager GUI;
     public static ModuleManager MODULE;
     public static NotifyManager NOTIFY;
-    public static EventManager EVENTS;
 
     // Mod Info Load
     static {
@@ -83,14 +83,14 @@ public class Emotion implements ModInitializer {
         CONSOLE.logInfo("Text Manager was loaded");
         THEME = new ThemeManager();
         CONSOLE.logInfo("Theme Manager was loaded");
+        EVENTS = new EventManager();
+        CONSOLE.logInfo("Event Manager was loaded");
         GUI = new GuiManager();
         CONSOLE.logInfo("GUI Manager was loaded");
         MODULE = new ModuleManager();
         CONSOLE.logInfo("Module Manager was loaded");
         NOTIFY = new NotifyManager();
         CONSOLE.logInfo("Notify Manager was loaded");
-        EVENTS = new EventManager();
-        CONSOLE.logInfo("Event Manager was loaded");
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             if (LOADED) {

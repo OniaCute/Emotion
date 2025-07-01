@@ -1,0 +1,15 @@
+{
+  "targets": ["blur_final"],
+  "passes": [
+    {
+      "name": "gaussian_blur_v",
+      "intarget": "blur_output",
+      "outtarget": "blur_final",
+      "auxtargets": [],
+      "uniforms": [
+        { "name": "Radius", "values": [5] },
+        { "name": "Direction", "values": [0.0, 1.0] }
+      ]
+    }
+  ]
+}

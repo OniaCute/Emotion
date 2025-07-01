@@ -138,25 +138,23 @@ public class FontRenderer implements Closeable, Wrapper {
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
 
         RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX_COLOR);
-        Tessellator tess = Tessellator.getInstance();
-        BufferBuilder bb = tess.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
         Matrix4f mat = stack.peek().getPositionMatrix();
         char[] chars = s.toCharArray();
-        float xOffset = 0;
-        float yOffset = 0;
+        float xOffset = 0, yOffset = 0;
         boolean inSel = false;
         int lineStart = 0;
+
         for (int i = 0; i < chars.length; i++) {
             char c = chars[i];
             if (inSel) {
                 inSel = false;
                 char c1 = Character.toUpperCase(c);
                 if (colorCodes.containsKey(c1) && !shadow) {
-                    int ii = colorCodes.get(c1);
-                    int[] col = RGBIntToRGB(ii);
-                    r2 = col[0] / 255f;
-                    g2 = col[1] / 255f;
-                    b2 = col[2] / 255f;
+                    int col = colorCodes.get(c1);
+                    int[] rgb = RGBIntToRGB(col);
+                    r2 = rgb[0] / 255f;
+                    g2 = rgb[1] / 255f;
+                    b2 = rgb[2] / 255f;
                 } else if (c1 == 'R') {
                     r2 = r;
                     g2 = g;
@@ -173,46 +171,52 @@ public class FontRenderer implements Closeable, Wrapper {
                 lineStart = i + 1;
                 continue;
             }
+
             Glyph glyph = locateGlyph1(c);
             if (glyph.value() != ' ') {
-                Identifier i1 = glyph.owner().bindToTexture;
+                Identifier tex = glyph.owner().bindToTexture;
                 DrawEntry entry = new DrawEntry(xOffset, yOffset, r2, g2, b2, glyph);
-                GLYPH_PAGE_CACHE.computeIfAbsent(i1, integer -> new ObjectArrayList<>()).add(entry);
+                GLYPH_PAGE_CACHE.computeIfAbsent(tex, k -> new ObjectArrayList<>()).add(entry);
             }
             xOffset += glyph.width();
         }
+
         for (Identifier identifier : GLYPH_PAGE_CACHE.keySet()) {
+            List<DrawEntry> entries = GLYPH_PAGE_CACHE.get(identifier);
+            if (entries == null || entries.isEmpty()) continue;
+
             RenderSystem.setShaderTexture(0, identifier);
-            java.util.List<DrawEntry> objects = GLYPH_PAGE_CACHE.get(identifier);
+            Tessellator tess = Tessellator.getInstance();
+            BufferBuilder bb = tess.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
 
-            tess.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
-
-            for (DrawEntry object : objects) {
-                float xo = object.atX;
-                float yo = object.atY;
-                float cr = object.r;
-                float cg = object.g;
-                float cb = object.b;
-                Glyph glyph = object.toDraw;
+            for (DrawEntry entry : entries) {
+                float xo = entry.atX;
+                float yo = entry.atY;
+                float cr = entry.r;
+                float cg = entry.g;
+                float cb = entry.b;
+                Glyph glyph = entry.toDraw;
                 GlyphMap owner = glyph.owner();
                 float w = glyph.width();
                 float h = glyph.height();
                 float u1 = (float) glyph.u() / owner.width;
                 float v1 = (float) glyph.v() / owner.height;
-                float u2 = (float) (glyph.u() + glyph.width()) / owner.width;
-                float v2 = (float) (glyph.v() + glyph.height()) / owner.height;
+                float u2 = (float) (glyph.u() + w) / owner.width;
+                float v2 = (float) (glyph.v() + h) / owner.height;
 
                 bb.vertex(mat, xo + 0, yo + h, 0).texture(u1, v2).color(cr, cg, cb, a);
                 bb.vertex(mat, xo + w, yo + h, 0).texture(u2, v2).color(cr, cg, cb, a);
                 bb.vertex(mat, xo + w, yo + 0, 0).texture(u2, v1).color(cr, cg, cb, a);
                 bb.vertex(mat, xo + 0, yo + 0, 0).texture(u1, v1).color(cr, cg, cb, a);
             }
+
             BufferRenderer.drawWithGlobalProgram(bb.end());
         }
 
         stack.pop();
         GLYPH_PAGE_CACHE.clear();
     }
+
 
     public void drawGradientString(@NotNull MatrixStack stack, @NotNull String s, float x, float y) {
         sizeCheck();
@@ -359,7 +363,7 @@ public class FontRenderer implements Closeable, Wrapper {
 
     @Contract(value = "-> new", pure = true)
     public static @NotNull Identifier randomIdentifier() {
-        return Identifier.of("emotion", "temp/" + randomString(32));
+        return Identifier.of("emotion", "temp/" + randomString(48));
     }
 
     private static String randomString(int length) {

@@ -1,0 +1,15 @@
+{
+  "targets": ["blur_output"],
+  "passes": [
+    {
+      "name": "gaussian_blur_h",
+      "intarget": "minecraft:main",
+      "outtarget": "blur_output",
+      "auxtargets": [],
+      "uniforms": [
+        { "name": "Radius", "values": [5] },
+        { "name": "Direction", "values": [1.0, 0.0] }
+      ]
+    }
+  ]
+}

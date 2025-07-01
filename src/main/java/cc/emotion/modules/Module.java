@@ -3,6 +3,7 @@ package cc.emotion.modules;
 import cc.emotion.Emotion;
 import cc.emotion.features.managers.TextManager;
 import cc.emotion.features.options.Option;
+import cc.emotion.features.options.impl.BindOption;
 import cc.emotion.features.options.impl.EnumOption;
 import cc.emotion.util.interfaces.Wrapper;
 import net.minecraft.client.gui.DrawContext;
@@ -14,6 +15,7 @@ public class Module implements Wrapper {
     private String name;
     private String displayName;
     private Category category;
+    private BindOption bind;
     private int priority = 0;
     private boolean status = false; // default disabled
     public List<Option<?>> options = new ArrayList<>();
@@ -22,6 +24,24 @@ public class Module implements Wrapper {
         this.name = name;
         this.displayName = Emotion.TEXT.get("Module.Modules." + name + ".name");
         this.category = category;
+
+        this.bind = (BindOption) addOption(new BindOption("_BIND_", -1, BindOption.BindType.Click));
+    }
+
+    public void enable() {
+        if (this.getStatus()) {
+            return;
+        }
+
+        this.setStatus(true);
+    }
+
+    public void disable() {
+        if (!this.getStatus()) {
+            return;
+        }
+
+        this.setStatus(false);
     }
 
     public <T> Option<T> addOption(Option<T> option) {
@@ -79,6 +99,14 @@ public class Module implements Wrapper {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public void setBind(BindOption bind) {
+        this.bind = bind;
+    }
+
+    public BindOption getBind() {
+        return bind;
     }
 
     public int getPriority() {

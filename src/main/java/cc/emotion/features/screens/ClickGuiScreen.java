@@ -10,8 +10,7 @@ import net.minecraft.text.Text;
 
 public class ClickGuiScreen extends Screen {
     public ClickGuiScreen() {
-        super(Text.of("Emotion-Client-Click-Gui-Screen"));
-        GuiManager.CLICK_GUI_SCREEN = this;
+        super(Text.of("EmotionClientClickGuiScreen"));
     }
 
     public boolean LEFT_CLICKED = false; // Mouse 1 (0)

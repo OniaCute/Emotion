@@ -18,14 +18,14 @@ public class TextManager {
     }
 
     private void loadEnglish() {
-        englishLanguageBase.put("Module.Category.CLIENT.Name", "Client");
-        englishLanguageBase.put("Module.Category.COMBAT.Name", "Combat");
-        englishLanguageBase.put("Module.Category.MOVEMENT.Name", "Movement");
-        englishLanguageBase.put("Module.Category.PLAYER.Name", "PLAYER");
-        englishLanguageBase.put("Module.Category.EXPLOIT.Name", "Exploit");
-        englishLanguageBase.put("Module.Category.VISUAL.Name", "Visual");
-        englishLanguageBase.put("Module.Category.MISC.Name", "Misc");
-        englishLanguageBase.put("Module.Category.HUD.Name", "HUD");
+        englishLanguageBase.put("Module.Category.CLIENT.name", "Client");
+        englishLanguageBase.put("Module.Category.COMBAT.name", "Combat");
+        englishLanguageBase.put("Module.Category.MOVEMENT.ame", "Movement");
+        englishLanguageBase.put("Module.Category.PLAYER.name", "PLAYER");
+        englishLanguageBase.put("Module.Category.EXPLOIT.name", "Exploit");
+        englishLanguageBase.put("Module.Category.VISUAL.name", "Visual");
+        englishLanguageBase.put("Module.Category.MISC.name", "Misc");
+        englishLanguageBase.put("Module.Category.HUD.name", "HUD");
 
         englishLanguageBase.put("Theme.Error.Notify.AuthorIsNotExist.title", "Theme Error");
         englishLanguageBase.put("Theme.Error.Notify.AuthorIsNotExist.description", "The author of the theme does not exist!");
@@ -48,14 +48,14 @@ public class TextManager {
     }
 
     private void loadChinese() {
-        chineseLanguageBase.put("Module.Category.CLIENT.Name", "客户端");
-        chineseLanguageBase.put("Module.Category.COMBAT.Name", "战斗类");
-        chineseLanguageBase.put("Module.Category.MOVEMENT.Name", "移动类");
-        chineseLanguageBase.put("Module.Category.PLAYER.Name", "玩家类");
-        chineseLanguageBase.put("Module.Category.EXPLOIT.Name", "漏洞类");
-        chineseLanguageBase.put("Module.Category.VISUAL.Name", "视觉类");
-        chineseLanguageBase.put("Module.Category.MISC.Name", "杂项");
-        chineseLanguageBase.put("Module.Category.HUD.Name", "HUD");
+        chineseLanguageBase.put("Module.Category.CLIENT.name", "客户端");
+        chineseLanguageBase.put("Module.Category.COMBAT.name", "战斗类");
+        chineseLanguageBase.put("Module.Category.MOVEMENT.name", "移动类");
+        chineseLanguageBase.put("Module.Category.PLAYER.name", "玩家类");
+        chineseLanguageBase.put("Module.Category.EXPLOIT.name", "漏洞类");
+        chineseLanguageBase.put("Module.Category.VISUAL.name", "视觉类");
+        chineseLanguageBase.put("Module.Category.MISC.name", "杂项");
+        chineseLanguageBase.put("Module.Category.HUD.name", "HUD");
 
         chineseLanguageBase.put("Theme.Error.Notify.AuthorIsNotExist.title", "主题错误");
         chineseLanguageBase.put("Theme.Error.Notify.AuthorIsNotExist.description", "该主题的作者不存在!");
@@ -69,22 +69,29 @@ public class TextManager {
         chineseLanguageBase.put("Module.Modules.Client.Options.BooleanOption.SafeMode.name", "安全模式");
         chineseLanguageBase.put("Module.Modules.Client.Options.BooleanOption.SafeMode.description", "安全模式在EmotionClient加载时默认开启,该选项将协助你的作弊行为尽可能不被检测");
 
-        englishLanguageBase.put("Module.Modules.Notify.name", "通知");
-        englishLanguageBase.put("Module.Modules.Notify.description", "设置通知样式");
+        chineseLanguageBase.put("Module.Modules.Notify.name", "通知");
+        chineseLanguageBase.put("Module.Modules.Notify.description", "设置通知样式");
 
-        englishLanguageBase.put("Module.Modules.HudEditor.name", "HUD编辑器");
-        englishLanguageBase.put("Module.Modules.HudEditor.description", "编辑HUD内容");
+        chineseLanguageBase.put("Module.Modules.HudEditor.name", "HUD编辑器");
+        chineseLanguageBase.put("Module.Modules.HudEditor.description", "编辑HUD内容");
     }
 
     public String get(String key) {
+        String result;
 //        switch (Client.INSTANCE.language.getValue().name()) {
         switch ("e") {
             case "Chinese" -> {
-                return chineseLanguageBase.get(key);
+                result = chineseLanguageBase.get(key);
             }
             default -> {
-                return englishLanguageBase.get(key);
+                result = englishLanguageBase.get(key);
             }
         }
+
+        if (result == null) {
+            return key;
+        }
+
+        return result;
     }
 }

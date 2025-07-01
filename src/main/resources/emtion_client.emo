@@ -1,0 +1,4 @@
+{
+    "Client" : "Emotion_Client",
+    "Version" : "%client_version%"
+}
