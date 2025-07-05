@@ -45,6 +45,24 @@ public class TextManager {
         englishLanguageBase.put("Module.Modules.HudEditor.name", "HUD Editor");
         englishLanguageBase.put("Module.Modules.HudEditor.description", "Edit something about HUDs");
 
+        englishLanguageBase.put("Module.Modules.CombatSetting.name", "Combat Setting");
+        englishLanguageBase.put("Module.Modules.CombatSetting.description", "Manage each option about combat module");
+
+        englishLanguageBase.put("Module.Modules.Watermark.name", "Watermark");
+        englishLanguageBase.put("Module.Modules.Watermark.description", "Draw a watermark on the screen");
+
+        englishLanguageBase.put("Module.Modules.Spam.name", "Spam");
+        englishLanguageBase.put("Module.Modules.Spam.description", "Auto type some text to chat screen");
+
+        englishLanguageBase.put("Module.Modules.AutoSprint.name", "Auto Sprint");
+        englishLanguageBase.put("Module.Modules.AutoSprint.description", "Always sprint when you move");
+
+        englishLanguageBase.put("Module.Modules.FastPlace.name", "Fast Place");
+        englishLanguageBase.put("Module.Modules.FastPlace.description", "Reduce the delay between place block");
+
+        englishLanguageBase.put("Module.Modules.ESP.name", "Player ESP");
+        englishLanguageBase.put("Module.Modules.ESP.description", "Show info of players all the time");
+
     }
 
     private void loadChinese() {
@@ -74,6 +92,24 @@ public class TextManager {
 
         chineseLanguageBase.put("Module.Modules.HudEditor.name", "HUD编辑器");
         chineseLanguageBase.put("Module.Modules.HudEditor.description", "编辑HUD内容");
+
+        chineseLanguageBase.put("Module.Modules.CombatSetting.name", "战斗类设置");
+        chineseLanguageBase.put("Module.Modules.CombatSetting.description", "管理战斗类模块的相关设置项");
+
+        chineseLanguageBase.put("Module.Modules.Watermark.name", "水印");
+        chineseLanguageBase.put("Module.Modules.Watermark.description", "在屏幕上绘制一个水印");
+
+        chineseLanguageBase.put("Module.Modules.Spam.name", " 刷屏工具");
+        chineseLanguageBase.put("Module.Modules.Spam.description", "自动在聊天栏中发送文字");
+
+        chineseLanguageBase.put("Module.Modules.AutoSprint.name", "自动疾跑");
+        chineseLanguageBase.put("Module.Modules.AutoSprint.description", "在移动时始终保持疾跑状态");
+
+        chineseLanguageBase.put("Module.Modules.FastPlace.name", "快速放置");
+        chineseLanguageBase.put("Module.Modules.FastPlace.description", "减少放置方块间的时间间隔");
+
+        chineseLanguageBase.put("Module.Modules.ESP.name", "玩家透视");
+        chineseLanguageBase.put("Module.Modules.ESP.description", "无时无刻显示玩家信息");
     }
 
     public String get(String key) {

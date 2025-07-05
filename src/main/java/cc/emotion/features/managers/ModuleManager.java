@@ -7,15 +7,18 @@ import cc.emotion.modules.client.HudEditor;
 import cc.emotion.modules.client.Notify;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ModuleManager {
     public static List<Module> modules = new ArrayList<Module>();
 
     public ModuleManager() {
+
         registerModule(new Client());
         registerModule(new Notify());
         registerModule(new HudEditor());
+        
     }
 
     public void registerModule(Module module) {

@@ -44,7 +44,6 @@ public class Network {
                         (String) result.get("account_username"),
                         (AccountStatus) result.get("account_status"),
                         (SubscriptionTypes) result.get("account_sub"),
-
                         (Date) result.get("account_expire"),
                         (String) result.get("account_token")
                 );

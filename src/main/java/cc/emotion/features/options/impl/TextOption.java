@@ -21,12 +21,12 @@ public class TextOption extends Option<String> {
 
     @Override
     public void setValue(String value) {
-        super.setValue(value);
+        this.value = value;
     }
 
     @Override
     public String getValue() {
-        return super.getValue();
+        return this.value;
     }
 
     public char getFirstChar() {

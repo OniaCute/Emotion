@@ -22,5 +22,5 @@ public abstract class Notification {
         return aliveTime > 0.0;
     }
 
-    public void onDraw2D(DrawContext context, float tickDelta) {}
+    public abstract void onDraw2D(DrawContext context, float tickDelta);
 }

@@ -65,11 +65,7 @@ public abstract class Option<T> {
         return description;
     }
 
-    public T getValue() {
-        return value;
-    }
+    public abstract T getValue();
 
-    public void setValue(T value) {
-        this.value = value;
-    }
+    public abstract void setValue(T value);
 }

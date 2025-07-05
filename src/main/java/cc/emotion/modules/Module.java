@@ -117,6 +117,14 @@ public class Module implements Wrapper {
         this.priority = priority;
     }
 
+    public void addPriority() {
+        priority ++;
+    }
+
+    public void reducePriority() {
+        priority --;
+    }
+
     public Category getCategory() {
         return category;
     }

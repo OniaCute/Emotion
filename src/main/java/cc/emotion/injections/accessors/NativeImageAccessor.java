@@ -8,6 +8,4 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface NativeImageAccessor {
     @Accessor("pointer")
     long getPointer();
-
-
 }

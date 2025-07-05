@@ -2,6 +2,6 @@ package cc.emotion.features.enums;
 
 public enum AntiCheats {
     None,
-    Vanilla,
+    Custom,
     Grim
 }

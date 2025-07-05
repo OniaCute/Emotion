@@ -4,7 +4,6 @@ import net.minecraft.client.gui.DrawContext;
 
 public class NormalNotification extends Notification {
     private String description;
-
     public NormalNotification(String text, String description, double aliveTime) {
         this.text = text;
         this.description = description;
@@ -21,6 +20,5 @@ public class NormalNotification extends Notification {
 
     @Override
     public void onDraw2D(DrawContext context, float tickDelta) {
-
     }
 }

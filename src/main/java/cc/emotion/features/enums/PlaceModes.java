@@ -4,5 +4,6 @@ public enum PlaceModes {
     Vanilla,
     Strict,
     Legit,
-    AirPlace
+    AirPlace,
+    None // blocked all client place
 }
